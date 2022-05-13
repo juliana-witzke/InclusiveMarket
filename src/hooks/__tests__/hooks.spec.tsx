@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { waitFor } from '@testing-library/react'
-import { Server } from 'miragejs'
-import { startMirageServer } from '../../miragejs/server'
+import { Server, Response } from 'miragejs'
 
+import { startMirageServer } from '../../miragejs/server'
 import { useFetchProducts } from '../useFetchProducts'
 
 describe('Hooks', () => {
@@ -23,5 +23,16 @@ describe('Hooks', () => {
 
     await waitFor(() => expect(result.current.products.length).toBe(3))
   })
+
+  it('should receive an error message when request fails', async () => {
+    const errorMessage = "Couldn't fetch products"
+
+    server.get('/products', () => {
+      return new Response(500, {}, { error: errorMessage })
+    })
+
+    const { result } = renderHook(useFetchProducts)
+
+    await waitFor(() => expect(result.current.error).toBe(errorMessage))
+  })
 })
-// it.todo('should set error to true when request fails')
