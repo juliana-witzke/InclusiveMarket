@@ -56,7 +56,10 @@ const CartProvider: React.FC = ({ children }) => {
   const decreaseQuantity = useCallback((productId: string) => {
     setProducts(previousState =>
       previousState.map(previousProduct => {
-        if (previousProduct.product.id === productId)
+        if (
+          previousProduct.product.id === productId &&
+          previousProduct.quantity > 1
+        )
           return {
             product: previousProduct.product,
             quantity: previousProduct.quantity - 1
