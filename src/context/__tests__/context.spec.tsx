@@ -79,7 +79,7 @@ describe('Cart Context', () => {
     })
   })
 
-  it.only('should be able to remove a product', async () => {
+  it('should be able to remove a product', async () => {
     server.createList('product', 2)
 
     const { result: productsResult, waitForNextUpdate } =
@@ -107,8 +107,46 @@ describe('Cart Context', () => {
       quantity: 1
     })
   })
+
+  it("should be able to increase a product's quantity by 1", async () => {
+  server.createList('product', 2)
+
+    const { result: productsResult, waitForNextUpdate } =
+      renderHook(useFetchProducts)
+
+    await waitForNextUpdate()
+
+    const availableProducts = productsResult.current.products
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper
+    })
+
+    const firstProduct = availableProducts[0]
+    const secondProduct = availableProducts[1]
+
+    act(() => result.current.addProduct(firstProduct))
+    act(() => result.current.addProduct(secondProduct))
+
+    act(() => result.current.increaseQuantity(firstProduct.id))
+    act(() => result.current.increaseQuantity(firstProduct.id))
+    act(() => result.current.increaseQuantity(firstProduct.id))
+    act(() => result.current.increaseQuantity(firstProduct.id))
+
+    act(() => result.current.increaseQuantity(secondProduct.id))
+    act(() => result.current.increaseQuantity(secondProduct.id))
+
+    expect(result.current.products.length).toBe(2)
+    expect(result.current.products[0]).toEqual({
+      product: firstProduct,
+      quantity: 5
+    })
+    expect(result.current.products[1]).toEqual({
+      product: secondProduct,
+      quantity: 3
+    })
+  })
 })
 
-// it.todo("should be able to increase a product's quantity by 1")
 // it.todo("should be able to decrease a product's quantity by 1")
 // it.todo("should be able to decrease a product's quantity by 1 but never hit 0")
