@@ -19,7 +19,16 @@ const CartProvider: React.FC = ({ children }) => {
   const [products, setProducts] = useState<ICartProduct[]>([])
 
   const addProduct = useCallback((product: IProduct) => {
-    setProducts(previousState => [...previousState, { product, quantity: 1 }])
+    setProducts(previousState => {
+      const productAlreadyExists =
+        previousState.filter(
+          previousProduct => previousProduct.product.id === product.id
+        ).length !== 0
+
+      if (productAlreadyExists) return [...previousState]
+
+      return [...previousState, { product, quantity: 1 }]
+    })
   }, [])
 
   const removeProduct = useCallback(() => {}, [])
