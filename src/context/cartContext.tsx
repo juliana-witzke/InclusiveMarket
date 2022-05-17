@@ -3,9 +3,9 @@ import { createContext, useCallback, useContext, useState } from 'react'
 interface ICartContextData {
   products: Array<ICartProduct>
   addProduct: (product: IProduct) => void
-  removeProduct: (product: IProduct) => void
-  increaseQuantity: (product: IProduct) => void
-  decreaseQuantity: (product: IProduct) => void
+  removeProduct: (productId: string) => void
+  increaseQuantity: (productId: string) => void
+  decreaseQuantity: (productId: string) => void
 }
 
 interface ICartProduct {
@@ -31,7 +31,13 @@ const CartProvider: React.FC = ({ children }) => {
     })
   }, [])
 
-  const removeProduct = useCallback(() => {}, [])
+  const removeProduct = useCallback((productId: string) => {
+    setProducts(previousState =>
+      previousState.filter(
+        previousProduct => previousProduct.product.id !== productId
+      )
+    )
+  }, [])
 
   const increaseQuantity = useCallback(() => {}, [])
 
