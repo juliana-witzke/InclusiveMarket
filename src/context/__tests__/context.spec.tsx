@@ -52,7 +52,7 @@ describe('Cart Context', () => {
     })
   })
 
-  it.only('should not be able to add the same product twice', async () => {
+  it('should not be able to add the same product twice', async () => {
     server.createList('product', 2)
 
     const { result: productsResult, waitForNextUpdate } =
@@ -74,13 +74,41 @@ describe('Cart Context', () => {
 
     expect(result.current.products.length).toBe(1)
     expect(result.current.products[0]).toEqual({
-      product: product,
+      product,
+      quantity: 1
+    })
+  })
+
+  it.only('should be able to remove a product', async () => {
+    server.createList('product', 2)
+
+    const { result: productsResult, waitForNextUpdate } =
+      renderHook(useFetchProducts)
+
+    await waitForNextUpdate()
+
+    const availableProducts = productsResult.current.products
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper
+    })
+
+    const firstProduct = availableProducts[0]
+    const secondProduct = availableProducts[1]
+
+    act(() => result.current.addProduct(firstProduct))
+    act(() => result.current.addProduct(secondProduct))
+
+    act(() => result.current.removeProduct(firstProduct.id))
+
+    expect(result.current.products.length).toBe(1)
+    expect(result.current.products[0]).toEqual({
+      product: secondProduct,
       quantity: 1
     })
   })
 })
 
-// it.todo('should be able to remove a product')
 // it.todo("should be able to increase a product's quantity by 1")
 // it.todo("should be able to decrease a product's quantity by 1")
 // it.todo("should be able to decrease a product's quantity by 1 but never hit 0")
