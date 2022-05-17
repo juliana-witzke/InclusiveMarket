@@ -1,19 +1,26 @@
 import { createContext, useCallback, useContext, useState } from 'react'
 
 interface ICartContextData {
-  products: Array<IProduct>
+  products: Array<ICartProduct>
   addProduct: (product: IProduct) => void
   removeProduct: (product: IProduct) => void
   increaseQuantity: (product: IProduct) => void
   decreaseQuantity: (product: IProduct) => void
 }
 
+interface ICartProduct {
+  product: IProduct
+  quantity: number
+}
+
 const CartContext = createContext<ICartContextData>({} as ICartContextData)
 
 const CartProvider: React.FC = ({ children }) => {
-  const [products, setProducts] = useState<IProduct[]>([])
+  const [products, setProducts] = useState<ICartProduct[]>([])
 
-  const addProduct = useCallback(() => {}, [])
+  const addProduct = useCallback((product: IProduct) => {
+    setProducts(previousState => [...previousState, { product, quantity: 1 }])
+  }, [])
 
   const removeProduct = useCallback(() => {}, [])
 
