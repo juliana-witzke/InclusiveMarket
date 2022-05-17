@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 import { act } from '@testing-library/react'
 
-import { CartProvider, useCart, CartContext } from '../cartContext'
+import { CartProvider, useCart } from '../cartContext'
 import { startMirageServer } from '../../miragejs/server'
 import { useFetchProducts } from '../../hooks/useFetchProducts'
 
@@ -12,9 +12,19 @@ describe('Cart Context', () => {
   const wrapper = ({ children }: { children: ReactElement }) => (
     <CartProvider>{children}</CartProvider>
   )
+  const fetchProducts = async () => {
+    const { result: productsResult, waitForNextUpdate } =
+      renderHook(useFetchProducts)
+
+    await waitForNextUpdate()
+
+    return productsResult.current.products
+  }
 
   beforeEach(() => {
     server = startMirageServer({ environment: 'test' })
+
+    server.createList('product', 5)
   })
 
   afterEach(() => {
@@ -22,14 +32,7 @@ describe('Cart Context', () => {
   })
 
   it('should be able to add two different products', async () => {
-    server.createList('product', 2)
-
-    const { result: productsResult, waitForNextUpdate } =
-      renderHook(useFetchProducts)
-
-    await waitForNextUpdate()
-
-    const availableProducts = productsResult.current.products
+    const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
       wrapper
@@ -53,14 +56,7 @@ describe('Cart Context', () => {
   })
 
   it('should not be able to add the same product twice', async () => {
-    server.createList('product', 2)
-
-    const { result: productsResult, waitForNextUpdate } =
-      renderHook(useFetchProducts)
-
-    await waitForNextUpdate()
-
-    const availableProducts = productsResult.current.products
+    const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
       wrapper
@@ -80,14 +76,7 @@ describe('Cart Context', () => {
   })
 
   it('should be able to remove a product', async () => {
-    server.createList('product', 2)
-
-    const { result: productsResult, waitForNextUpdate } =
-      renderHook(useFetchProducts)
-
-    await waitForNextUpdate()
-
-    const availableProducts = productsResult.current.products
+    const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
       wrapper
@@ -109,14 +98,7 @@ describe('Cart Context', () => {
   })
 
   it("should be able to increase a product's quantity by 1", async () => {
-    server.createList('product', 2)
-
-    const { result: productsResult, waitForNextUpdate } =
-      renderHook(useFetchProducts)
-
-    await waitForNextUpdate()
-
-    const availableProducts = productsResult.current.products
+    const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
       wrapper
@@ -148,14 +130,7 @@ describe('Cart Context', () => {
   })
 
   it("should be able to decrease a product's quantity by 1", async () => {
-    server.createList('product', 2)
-
-    const { result: productsResult, waitForNextUpdate } =
-      renderHook(useFetchProducts)
-
-    await waitForNextUpdate()
-
-    const availableProducts = productsResult.current.products
+    const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
       wrapper
@@ -192,14 +167,7 @@ describe('Cart Context', () => {
   })
 
   it("should be able to decrease a product's quantity by 1 but never hit 0", async () => {
-    server.createList('product', 2)
-
-    const { result: productsResult, waitForNextUpdate } =
-      renderHook(useFetchProducts)
-
-    await waitForNextUpdate()
-
-    const availableProducts = productsResult.current.products
+    const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
       wrapper
