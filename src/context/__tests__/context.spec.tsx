@@ -51,9 +51,35 @@ describe('Cart Context', () => {
       quantity: 1
     })
   })
+
+  it.only('should not be able to add the same product twice', async () => {
+    server.createList('product', 2)
+
+    const { result: productsResult, waitForNextUpdate } =
+      renderHook(useFetchProducts)
+
+    await waitForNextUpdate()
+
+    const availableProducts = productsResult.current.products
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper
+    })
+
+    const product = availableProducts[0]
+
+    act(() => result.current.addProduct(product))
+    act(() => result.current.addProduct(product))
+    act(() => result.current.addProduct(product))
+
+    expect(result.current.products.length).toBe(1)
+    expect(result.current.products[0]).toEqual({
+      product: product,
+      quantity: 1
+    })
+  })
 })
 
-// it.todo('should not be able to add the same product twice')
 // it.todo('should be able to remove a product')
 // it.todo("should be able to increase a product's quantity by 1")
 // it.todo("should be able to decrease a product's quantity by 1")
