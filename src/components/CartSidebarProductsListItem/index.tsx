@@ -19,10 +19,10 @@ interface IProductCart {
   product: IProduct
 }
 
-export const ProductAddedToCart = ({ product }: IProductCart): JSX.Element => {
+export const CartSidebarProductsListItem = ({ product }: IProductCart): JSX.Element => {
   return (
     <>
-      <Container>
+      <Container role="listitem">
         <ImageContainer>
           <ProductImage src={product.imageUrl} alt="" />
         </ImageContainer>

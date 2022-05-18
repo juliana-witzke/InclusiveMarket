@@ -53,10 +53,11 @@ export const Header = styled.div`
   }
 `
 
-export const CartAddedProductsList = styled.div`
+export const CartSidebarProductsList = styled.ul`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  list-style: none;
 `
 
 export const Footer = styled.div`

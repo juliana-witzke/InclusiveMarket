@@ -1,17 +1,21 @@
 import { FiX } from 'react-icons/fi'
-import { ProductAddedToCart } from '../ProductAddedToCart'
+
+import { CartSidebarProductsListItem } from '../CartSidebarProductsListItem'
 import {
   Overlay,
   Sidebar,
   Header,
   CloseButton,
-  CartAddedProductsList,
+  CartSidebarProductsList,
   Footer,
   TotalPrice,
   CtaButton
 } from './styles'
+import { useCart } from '../../context/cartContext'
 
 export const CartSidebar = (): JSX.Element => {
+  const { products } = useCart()
+
   return (
     <>
       <Sidebar data-testid="sidebar">
@@ -23,7 +27,14 @@ export const CartSidebar = (): JSX.Element => {
           <h3>Cart</h3>
         </Header>
 
-        <CartAddedProductsList />
+        <CartSidebarProductsList role="list">
+          {products?.map(({ product, quantity }) => (
+            <CartSidebarProductsListItem
+              key={product.id}
+              product={{ ...product, quantity }}
+            />
+          ))}
+        </CartSidebarProductsList>
 
         <Footer>
           <TotalPrice>
