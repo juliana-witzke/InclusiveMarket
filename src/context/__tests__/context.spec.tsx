@@ -21,13 +21,13 @@ describe('Cart Context', () => {
     return productsResult.current.products
   }
 
-  beforeEach(() => {
+  beforeAll(() => {
     server = startMirageServer({ environment: 'test' })
 
     server.createList('product', 5)
   })
 
-  afterEach(() => {
+  afterAll(() => {
     server.shutdown()
   })
 
