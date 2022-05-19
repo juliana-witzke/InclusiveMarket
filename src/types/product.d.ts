@@ -1,7 +1,7 @@
 interface IProduct {
   id: string
   title: string
-  price: string
+  price: number
   imageUrl: string
   quantity: number
 }
