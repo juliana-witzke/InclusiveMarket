@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 import { ReactElement } from 'react'
 
-import { CartSidebar } from '..'
+import { CartSidebar, getCartTotalPrice } from '..'
 import { CartContext } from '../../../context/cartContext'
 import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
@@ -63,5 +63,15 @@ describe('Cart Sidebar', () => {
       cartSidebarProductsList.querySelectorAll('[role="listitem"]')
 
     expect(cartSidebarProductsListItem.length).toBe(5)
+  })
+
+  it('should update total price based on the added products and their quantities', async () => {
+    renderCartSidebar()
+
+    const cartTotalPrice = getCartTotalPrice(cartProducts)
+
+    const cartTotalPriceElement = await screen.findByText(`$ ${cartTotalPrice}`)
+
+    expect(cartTotalPriceElement).toBeInTheDocument()
   })
 })
