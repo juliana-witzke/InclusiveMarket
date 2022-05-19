@@ -13,6 +13,16 @@ import {
 } from './styles'
 import { useCart } from '../../context/cartContext'
 
+export const getCartTotalPrice = (products: ICartProduct[]) => {
+  let totalPrice: number = 0
+
+  products.map(
+    product => (totalPrice += product.product.price * product.quantity)
+  )
+
+  return totalPrice.toFixed(2)
+}
+
 export const CartSidebar = (): JSX.Element => {
   const { products } = useCart()
 
@@ -40,7 +50,7 @@ export const CartSidebar = (): JSX.Element => {
           <TotalPrice>
             <p>Total</p>
 
-            <p>$45,66</p>
+            <p>$ {getCartTotalPrice(products)}</p>
           </TotalPrice>
 
           <CtaButton>place order</CtaButton>
