@@ -8,11 +8,6 @@ interface ICartContextData {
   decreaseQuantity: (productId: string) => void
 }
 
-interface ICartProduct {
-  product: IProduct
-  quantity: number
-}
-
 const CartContext = createContext<ICartContextData>({} as ICartContextData)
 
 const CartProvider: React.FC = ({ children }) => {

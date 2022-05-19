@@ -5,3 +5,8 @@ interface IProduct {
   imageUrl: string
   quantity: number
 }
+
+interface ICartProduct {
+  product: IProduct
+  quantity: number
+}
