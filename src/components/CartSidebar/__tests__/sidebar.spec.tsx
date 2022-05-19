@@ -11,7 +11,7 @@ import { startMirageServer } from '../../../miragejs/server'
 
 describe('Cart Sidebar', () => {
   let server: Server
-  let cartProducts: IProduct[]
+  let cartProducts: ICartProduct[]
   let wrapper: ({ children }: { children: ReactElement }) => JSX.Element
 
   const fetchProducts = async () => {
@@ -27,10 +27,7 @@ describe('Cart Sidebar', () => {
     return render(
       <CartContext.Provider
         value={{
-          products: cartProducts.map(product => ({
-            product,
-            quantity: 1
-          })),
+          products: cartProducts,
           addProduct: () => {},
           removeProduct: () => {},
           increaseQuantity: () => {},
@@ -47,14 +44,17 @@ describe('Cart Sidebar', () => {
 
     server.createList('product', 5)
 
-    cartProducts = await fetchProducts()
+    cartProducts = (await fetchProducts()).map(product => ({
+      product,
+      quantity: 1
+    }))
   })
 
   afterAll(() => {
     server.shutdown()
   })
 
-  it.only('should render a list of 5 products', async () => {
+  it('should render a list of 5 products', async () => {
     renderCartSidebar()
 
     const cartSidebarProductsList = await screen.findByRole('list')
@@ -64,6 +64,4 @@ describe('Cart Sidebar', () => {
 
     expect(cartSidebarProductsListItem.length).toBe(5)
   })
-
-  it.todo('update total price based on the added products and their quantities')
 })
