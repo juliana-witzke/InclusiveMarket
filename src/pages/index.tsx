@@ -7,6 +7,7 @@ import { ProductList } from '../components/ProductList'
 import { useFetchProducts } from '../hooks/useFetchProducts'
 import { CartSidebar } from '../components/CartSidebar'
 
+
 const Home: NextPage = () => {
   const { products } = useFetchProducts()
 
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
         <title>Deh's Market</title>
       </Head>
 
-      {/* <CartSidebar /> */}
+      <CartSidebar />
 
       <Header>
         <Image src="/images/dehsmarket.png" alt="" width={246} height={50} />
