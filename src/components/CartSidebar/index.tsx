@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { FiX } from 'react-icons/fi'
 
 import { CartSidebarProductsListItem } from '../CartSidebarProductsListItem'
@@ -25,12 +26,13 @@ export const getCartTotalPrice = (products: ICartProduct[]) => {
 
 export const CartSidebar = (): JSX.Element => {
   const { products } = useCart()
+  const [ showSidebar, setShowSidebar ] = useState(true);
 
   return (
     <>
-      <Sidebar data-testid="sidebar">
+      <Sidebar aria-hidden={!showSidebar} style={{ display: showSidebar ? 'flex' : 'none'}}>
         <Header>
-          <CloseButton>
+          <CloseButton aria-label={'Close'} onClick={() => setShowSidebar(false)}>
             <FiX size={26} color="#fd7272" />
           </CloseButton>
 
