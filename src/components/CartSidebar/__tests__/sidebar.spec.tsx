@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 import { ReactElement } from 'react'
@@ -73,5 +73,17 @@ describe('Cart Sidebar', () => {
     const cartTotalPriceElement = await screen.findByText(`$ ${cartTotalPrice}`)
 
     expect(cartTotalPriceElement).toBeInTheDocument()
+  })
+
+  it('should close the sidebar when clicking the "x" (close) button ', () => {
+    renderCartSidebar()
+
+    const cartSidebar = screen.getByRole('complementary', { hidden: false })
+    expect(cartSidebar).toBeVisible()
+    expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
+    const closeButtonElement = screen.getByLabelText('Close')
+    fireEvent.click(closeButtonElement)
+    expect(cartSidebar).not.toBeVisible()
+    expect(cartSidebar).toHaveAttribute('aria-hidden', 'true')
   })
 })
