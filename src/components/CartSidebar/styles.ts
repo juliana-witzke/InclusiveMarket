@@ -10,7 +10,7 @@ export const Overlay = styled.div`
   background: rgba(253, 114, 114, 0.31);
 `
 
-export const Sidebar = styled.div`
+export const Sidebar = styled.aside`
   position: fixed;
   z-index: 3;
   top: 0;
