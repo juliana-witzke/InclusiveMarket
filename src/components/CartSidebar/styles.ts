@@ -36,7 +36,7 @@ export const CloseButton = styled.button`
   justify-content: center;
 `
 
-export const Header = styled.div`
+export const Header = styled.header`
   display: flex;
   align-items: center;
 
@@ -60,7 +60,7 @@ export const CartSidebarProductsList = styled.ul`
   list-style: none;
 `
 
-export const Footer = styled.div`
+export const Footer = styled.footer`
   display: flex;
   flex-direction: column;
   align-items: center;
