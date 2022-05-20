@@ -59,7 +59,7 @@ export const CartSidebar = (): JSX.Element => {
         </Footer>
       </Sidebar>
 
-      <Overlay />
+      <Overlay aria-hidden={false} style={{ display: showSidebar ? 'flex' : 'none'}} />
     </>
   )
 }
