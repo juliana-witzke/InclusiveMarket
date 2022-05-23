@@ -7,6 +7,8 @@ import { ProductCard } from '..'
 import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
 
+const addProductMock = jest.fn().mockImplementation((product: IProduct) => {})
+
 describe("<ProductCard />", () => {
     let server: Server
     let availableProduct: IProduct;
@@ -22,15 +24,18 @@ describe("<ProductCard />", () => {
         server = startMirageServer({ environment: 'test' })
         server.createList('product', 5)
         availableProduct = (await fetchProducts())[0]
-        render(<ProductCard product={availableProduct} />);
     })
     
+    beforeEach(() => {
+        jest.clearAllMocks()
+        render(<ProductCard product={availableProduct} handleAddToCart={addProductMock} />);
+    })
+
     afterAll(() => {
         server.shutdown()
     })
 
     it('should render the product card component with product info', async () => {
-
         expect(screen.getByText(availableProduct.title)).toBeInTheDocument();
         const img = screen.getByAltText(availableProduct.image.description);
         expect(img).toBeInTheDocument()
@@ -38,7 +43,9 @@ describe("<ProductCard />", () => {
         expect(screen.getByText(availableProduct.price, { exact: false })).toBeInTheDocument();
     })
 
-    // it("should call add product to cart function when clicking + button", () => {
-        
-    // })
+    it("should call add product to cart function when clicking + button", async () => {
+        const addToCartButton = await screen.findByRole('button', { name: `Add ${availableProduct.title.toLowerCase()} to cart`})
+        fireEvent.click(addToCartButton)
+        expect(addProductMock).toHaveBeenCalledTimes(1)
+    })
 })
