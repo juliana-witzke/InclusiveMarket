@@ -51,8 +51,8 @@ export const products = [
     title: 'Pineapple',
     price: 12.45,
     image: {
-      url: '/images/pineaple.jpg',
-      description: 'Picture of a pineaple'
+      url: '/images/pineapple.jpg',
+      description: 'Picture of a pineapple'
     }
   },
   {

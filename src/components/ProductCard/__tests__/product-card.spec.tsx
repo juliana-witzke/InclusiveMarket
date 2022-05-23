@@ -28,7 +28,6 @@ describe("<ProductCard />", () => {
 
     it('should render the product card component with product info', async () => {
         const availableProduct = (await fetchProducts())[0]
-
         render(<ProductCard product={availableProduct} />);
         expect(screen.getByText(availableProduct.title)).toBeInTheDocument();
         const img = screen.getByAltText(availableProduct.image.description);
