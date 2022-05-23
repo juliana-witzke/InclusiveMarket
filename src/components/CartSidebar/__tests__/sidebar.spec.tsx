@@ -1,18 +1,16 @@
 /* eslint-disable react/display-name */
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
-import { ReactElement } from 'react'
 
 import { CartSidebar, getCartTotalPrice } from '..'
 import { CartContext } from '../../../context/cartContext'
 import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
 
-describe('Cart Sidebar', () => {
+describe('<CartSidebar />', () => {
   let server: Server
   let cartProducts: ICartProduct[]
-  let wrapper: ({ children }: { children: ReactElement }) => JSX.Element
 
   const fetchProducts = async () => {
     const { result: productsResult, waitForNextUpdate } =
