@@ -20,8 +20,8 @@ export const ProductCard = ({ product }: IProductProps): JSX.Element => {
     <Container data-testid="product-card">
       <ImageContainer>
         <ProductImage
-          src={product.imageUrl}
-          alt=""
+          src={product.image.url}
+          alt={product.image.description}
           data-testid="product-image"
         />
       </ImageContainer>

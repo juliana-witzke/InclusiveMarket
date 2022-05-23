@@ -2,46 +2,73 @@ export const products = [
   {
     title: 'Banana',
     price: 4.50,
-    imageUrl: '/images/banana.jpg'
+    image: {
+      url: '/images/banana.jpg',
+      description: 'Picture of a banana'
+    }
   },
   {
     title: 'Apple',
     price: 6.44,
-    imageUrl: '/images/apple.jpg'
+    image: {
+      url: '/images/apple.jpg',
+      description: 'Picture of an apple'
+    }
   },
   {
     title: 'Grape',
     price: 7.89,
-    imageUrl: '/images/grape.jpg'
+    image: {
+      url: '/images/grape.jpg',
+      description: 'Picture of a grape'
+    }
   },
   {
     title: 'Lemon',
     price: 3.78,
-    imageUrl: '/images/lemon.jpg'
+    image: {
+      url: '/images/lemon.jpg',
+      description: 'Picture of a lemon'
+    }
   },
   {
     title: 'Orange',
     price: 5.42,
-    imageUrl: '/images/orange.jpg'
+    image: {
+      url: '/images/orange.jpg',
+      description: 'Picture of an orange'
+    }
   },
   {
     title: 'Peach',
     price: 8.16,
-    imageUrl: '/images/peach.jpg'
+    image: {
+      url: '/images/peach.jpg',
+      description: 'Picture of a peach'
+    }
   },
   {
     title: 'Pineapple',
     price: 12.45,
-    imageUrl: '/images/pineapple.jpg'
+    image: {
+      url: '/images/pineaple.jpg',
+      description: 'Picture of a pineaple'
+    }
   },
   {
     title: 'Guava',
     price: 7.58,
-    imageUrl: '/images/guava.jpg'
+    image: {
+      url: '/images/guava.jpg',
+      description: 'Picture of a guava'
+    }
   },
   {
     title: 'Mango',
     price: 11.74,
-    imageUrl: '/images/mango.jpg'
+    image: {
+      url: '/images/mango.jpg',
+      description: 'Picture of a mango'
+    }
   }
 ]

@@ -24,7 +24,7 @@ export const CartSidebarProductsListItem = ({ product }: IProductCart): JSX.Elem
     <>
       <Container role="listitem">
         <ImageContainer>
-          <ProductImage src={product.imageUrl} alt="" />
+          <ProductImage src={product.image.url} alt={product.image.description} />
         </ImageContainer>
 
         <ProductDetails>

@@ -13,7 +13,10 @@ export const startMirageServer = ({ environment = 'test' } = {}) => {
       product: Factory.extend({
         title: index => products[index].title,
         price: index => products[index].price,
-        imageUrl: index => products[index].imageUrl
+        image: index => ({ 
+          url: products[index].image.url,
+          description: products[index].image.description
+        })
       })
     },
 
