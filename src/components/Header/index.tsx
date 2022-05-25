@@ -5,7 +5,7 @@ import { useCart } from '../../context/cartContext'
 import { CartButton, HeaderContainer } from './styles'
 
 export const Header = (): JSX.Element => {
-  const { addProduct } = useCart()
+  const { products } = useCart()
 
   return (
     <HeaderContainer>
@@ -17,7 +17,9 @@ export const Header = (): JSX.Element => {
       />
 
       <CartButton onClick={() => {}}>
-        <span aria-label="Number of products added to cart">0</span>
+        <span aria-label="Number of products added to cart">
+          {products?.length}
+        </span>
 
         <FiShoppingCart
           size={22}
