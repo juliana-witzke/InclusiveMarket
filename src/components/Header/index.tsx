@@ -17,9 +17,14 @@ export const Header = (): JSX.Element => {
       />
 
       <CartButton onClick={() => {}}>
-        <span>0</span>
+        <span aria-label="Number of products added to cart">0</span>
 
-        <FiShoppingCart size={22} color="#fff" />
+        <FiShoppingCart
+          size={22}
+          color="#fff"
+          aria-label="Shopping cart icon"
+          role="img"
+        />
       </CartButton>
     </HeaderContainer>
   )
