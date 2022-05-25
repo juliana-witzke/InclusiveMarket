@@ -37,14 +37,6 @@ describe('<Header />', () => {
     )
   }
 
-  beforeAll(async () => {
-    server = startMirageServer({ environment: 'test' })
-  })
-
-  afterAll(() => {
-    server.shutdown()
-  })
-
   it('should render application logo with an alternative text', async () => {
     renderHeader()
 
@@ -63,11 +55,15 @@ describe('<Header />', () => {
     )
 
     expect(cartTotalPriceElement).toBeInTheDocument()
-    expect(cartTotalPriceElement.textContent).toBe("0")
+    expect(cartTotalPriceElement.textContent).toBe('0')
   })
 
-  it.skip('should close the sidebar when clicking the "x" (close) button ', async () => {
-    server.createList('product', 0)
+  it('should show the correct number of products added on cart button when something was added to cart', async () => {
+    const numberOfProducts = 9
+
+    server = startMirageServer({ environment: 'test' })
+
+    server.createList('product', numberOfProducts)
 
     cartProducts = (await fetchProducts()).map(product => ({
       product,
@@ -76,12 +72,13 @@ describe('<Header />', () => {
 
     renderHeader()
 
-    const cartSidebar = screen.getByRole('complementary', { hidden: false })
-    expect(cartSidebar).toBeVisible()
-    expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
-    const closeButtonElement = screen.getByLabelText('Close')
-    fireEvent.click(closeButtonElement)
-    expect(cartSidebar).not.toBeVisible()
-    expect(cartSidebar).toHaveAttribute('aria-hidden', 'true')
+    const cartTotalPriceElement = screen.getByLabelText(
+      'Number of products added to cart'
+    )
+
+    expect(cartTotalPriceElement).toBeInTheDocument()
+    expect(cartTotalPriceElement.textContent).toBe(numberOfProducts.toString())
+
+    server.shutdown()
   })
 })
