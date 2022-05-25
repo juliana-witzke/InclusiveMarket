@@ -4,7 +4,11 @@ import { FiShoppingCart } from 'react-icons/fi'
 import { useCart } from '../../context/cartContext'
 import { CartButton, HeaderContainer } from './styles'
 
-export const Header = (): JSX.Element => {
+interface IHeader {
+  openCartSidebar: () => {}
+}
+
+export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
   const { products } = useCart()
 
   return (
@@ -16,7 +20,7 @@ export const Header = (): JSX.Element => {
         height={50}
       />
 
-      <CartButton onClick={() => {}}>
+      <CartButton aria-label="Open cart" onClick={openCartSidebar}>
         <span aria-label="Number of products added to cart">
           {products?.length}
         </span>
