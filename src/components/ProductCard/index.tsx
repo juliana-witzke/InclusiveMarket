@@ -13,7 +13,7 @@ import {
 
 interface IProductProps {
   product: IProduct,
-  handleAddToCart: (product: IProduct) => {}
+  handleAddToCart: (product: IProduct) => void
 }
 
 export const ProductCard = ({ product, handleAddToCart }: IProductProps): JSX.Element => {
