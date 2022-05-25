@@ -8,6 +8,8 @@ import { CartContext } from '../../../context/cartContext'
 import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
 
+const openCartSidebarMock = jest.fn().mockImplementation(() => {})
+
 describe('<Header />', () => {
   let server: Server
   let cartProducts: ICartProduct[]
@@ -32,7 +34,7 @@ describe('<Header />', () => {
           decreaseQuantity: () => {}
         }}
       >
-        <Header />
+        <Header openCartSidebar={openCartSidebarMock} />
       </CartContext.Provider>
     )
   }
@@ -80,5 +82,17 @@ describe('<Header />', () => {
     expect(cartTotalPriceElement.textContent).toBe(numberOfProducts.toString())
 
     server.shutdown()
+  })
+
+  it('should call open cart sidebar when clicking on button', async () => {
+    renderHeader()
+
+    const openCartSidebarButton = await screen.findByRole('button', {
+      name: 'Open cart'
+    })
+
+    fireEvent.click(openCartSidebarButton)
+
+    expect(openCartSidebarMock).toHaveBeenCalledTimes(1)
   })
 })
