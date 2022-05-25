@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Header = styled.div`
+export const HeaderContainer = styled.header`
   max-width: 1000px;
   margin: 40px auto 20px;
   padding-bottom: 20px;
