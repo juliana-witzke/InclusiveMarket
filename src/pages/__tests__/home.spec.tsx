@@ -62,9 +62,32 @@ describe('<Home />', () => {
 
     fireEvent.click(openCartSidebarButton)
 
-    const cartSidebar = await screen.findByRole('complementary', { hidden: false })
+    const cartSidebar = await screen.findByRole('complementary', {
+      hidden: false
+    })
 
     expect(cartSidebar).toBeVisible()
     expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
+  })
+
+  it('should close the sidebar when clicking the "x" (close) button', async () => {
+    renderHome()
+
+    const openCartSidebarButton = await screen.findByRole('button', {
+      name: 'Open cart'
+    })
+
+    fireEvent.click(openCartSidebarButton)
+
+    const cartSidebar = await screen.findByRole('complementary', {
+      hidden: false
+    })
+
+    const closeButtonElement = screen.getByLabelText('Close')
+
+    fireEvent.click(closeButtonElement)
+
+    expect(cartSidebar).not.toBeVisible()
+    expect(cartSidebar).toHaveAttribute('aria-hidden', 'true')
   })
 })
