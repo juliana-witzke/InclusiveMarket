@@ -21,12 +21,10 @@ const Home: NextPage = () => {
 
       <Header openCartSidebar={() => setShowCartSidebar(true)} />
 
-      {showCartSidebar && (
-        <CartSidebar
-          closeCartSidebar={() => setShowCartSidebar(false)}
-          isHidden={!showCartSidebar}
-        />
-      )}
+      <CartSidebar
+        closeCartSidebar={() => setShowCartSidebar(false)}
+        isHidden={!showCartSidebar}
+      />
 
       <ProductList products={products} />
     </div>

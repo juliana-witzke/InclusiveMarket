@@ -29,13 +29,17 @@ export const getCartTotalPrice = (products: ICartProduct[]) => {
   return totalPrice.toFixed(2)
 }
 
-export const CartSidebar = ({ closeCartSidebar, isHidden }: ICartSidebar): JSX.Element => {
+export const CartSidebar = ({
+  closeCartSidebar,
+  isHidden
+}: ICartSidebar): JSX.Element => {
   const { products } = useCart()
 
   return (
     <>
       <Sidebar
         aria-hidden={isHidden}
+        style={{ display: isHidden ? 'none' : 'flex' }}
       >
         <Header>
           <CloseButton aria-label={'Close'} onClick={closeCartSidebar}>
