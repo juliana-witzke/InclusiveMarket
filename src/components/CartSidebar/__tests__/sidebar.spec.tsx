@@ -3,10 +3,17 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 
-import { CartSidebar, getCartTotalPrice } from '..'
+import { CartSidebar, getCartTotalPrice, ICartSidebar } from '..'
 import { CartContext } from '../../../context/cartContext'
 import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
+
+const closeCartSidebarMock = jest.fn().mockImplementation(() => {})
+
+const cartSidebarProps: ICartSidebar = {
+  isHidden: false,
+  closeCartSidebar: closeCartSidebarMock
+}
 
 describe('<CartSidebar />', () => {
   let server: Server
@@ -21,7 +28,7 @@ describe('<CartSidebar />', () => {
     return productsResult.current.products
   }
 
-  const renderCartSidebar = () => {
+  const renderCartSidebar = ({ isHidden, closeCartSidebar }: ICartSidebar) => {
     return render(
       <CartContext.Provider
         value={{
@@ -32,7 +39,7 @@ describe('<CartSidebar />', () => {
           decreaseQuantity: () => {}
         }}
       >
-        <CartSidebar />
+        <CartSidebar isHidden={isHidden} closeCartSidebar={closeCartSidebar} />
       </CartContext.Provider>
     )
   }
@@ -53,7 +60,7 @@ describe('<CartSidebar />', () => {
   })
 
   it('should render a list of 5 products', async () => {
-    renderCartSidebar()
+    renderCartSidebar(cartSidebarProps)
 
     const cartSidebarProductsList = await screen.findByRole('list')
 
@@ -64,7 +71,7 @@ describe('<CartSidebar />', () => {
   })
 
   it('should update total price based on the added products and their quantities', async () => {
-    renderCartSidebar()
+    renderCartSidebar(cartSidebarProps)
 
     const cartTotalPrice = getCartTotalPrice(cartProducts)
 
@@ -74,14 +81,17 @@ describe('<CartSidebar />', () => {
   })
 
   it('should close the sidebar when clicking the "x" (close) button ', () => {
-    renderCartSidebar()
+    renderCartSidebar(cartSidebarProps)
 
     const cartSidebar = screen.getByRole('complementary', { hidden: false })
+
     expect(cartSidebar).toBeVisible()
     expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
+
     const closeButtonElement = screen.getByLabelText('Close')
+
     fireEvent.click(closeButtonElement)
-    expect(cartSidebar).not.toBeVisible()
-    expect(cartSidebar).toHaveAttribute('aria-hidden', 'true')
+
+    expect(closeCartSidebarMock).toHaveBeenCalledTimes(1)
   })
 })
