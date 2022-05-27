@@ -5,7 +5,7 @@ import { useCart } from '../../context/cartContext'
 import { CartButton, HeaderContainer } from './styles'
 
 interface IHeader {
-  openCartSidebar: () => {}
+  openCartSidebar: () => void
 }
 
 export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
