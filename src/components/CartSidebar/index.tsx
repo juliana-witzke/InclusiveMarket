@@ -14,6 +14,11 @@ import {
 } from './styles'
 import { useCart } from '../../context/cartContext'
 
+export interface ICartSidebar {
+  closeCartSidebar: () => void
+  isHidden: boolean
+}
+
 export const getCartTotalPrice = (products: ICartProduct[]) => {
   let totalPrice: number = 0
 
@@ -24,15 +29,16 @@ export const getCartTotalPrice = (products: ICartProduct[]) => {
   return totalPrice.toFixed(2)
 }
 
-export const CartSidebar = (): JSX.Element => {
+export const CartSidebar = ({ closeCartSidebar, isHidden }: ICartSidebar): JSX.Element => {
   const { products } = useCart()
-  const [ showSidebar, setShowSidebar ] = useState(true);
 
   return (
     <>
-      <Sidebar aria-hidden={!showSidebar} style={{ display: showSidebar ? 'flex' : 'none'}}>
+      <Sidebar
+        aria-hidden={isHidden}
+      >
         <Header>
-          <CloseButton aria-label={'Close'} onClick={() => setShowSidebar(false)}>
+          <CloseButton aria-label={'Close'} onClick={closeCartSidebar}>
             <FiX size={26} color="#fd7272" />
           </CloseButton>
 
@@ -59,7 +65,10 @@ export const CartSidebar = (): JSX.Element => {
         </Footer>
       </Sidebar>
 
-      <Overlay aria-hidden={false} style={{ display: showSidebar ? 'flex' : 'none'}} />
+      <Overlay
+        aria-hidden={false}
+        style={{ display: isHidden ? 'none' : 'flex' }}
+      />
     </>
   )
 }

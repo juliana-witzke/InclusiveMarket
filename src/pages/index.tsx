@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -9,6 +10,8 @@ import { CartSidebar } from '../components/CartSidebar'
 const Home: NextPage = () => {
   const { products } = useFetchProducts()
 
+  const [showCartSidebar, setShowCartSidebar] = useState(false)
+
   return (
     <div>
       <Head>
@@ -16,9 +19,14 @@ const Home: NextPage = () => {
         <title>Deh's Market</title>
       </Head>
 
-      <Header />
+      <Header openCartSidebar={() => setShowCartSidebar(true)} />
 
-      <CartSidebar />
+      {showCartSidebar && (
+        <CartSidebar
+          closeCartSidebar={() => setShowCartSidebar(false)}
+          isHidden={!showCartSidebar}
+        />
+      )}
 
       <ProductList products={products} />
     </div>
