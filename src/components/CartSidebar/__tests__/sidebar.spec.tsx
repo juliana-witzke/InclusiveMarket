@@ -70,7 +70,7 @@ describe('<CartSidebar />', () => {
     expect(cartSidebarProductsListItem.length).toBe(5)
   })
 
-  it('should update total price based on the added products and their quantities', async () => {
+  it('should update total price based on the added products', async () => {
     renderCartSidebar(cartSidebarProps)
 
     const cartTotalPrice = getCartTotalPrice(cartProducts)
