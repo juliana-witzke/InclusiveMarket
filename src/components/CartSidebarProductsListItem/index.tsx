@@ -1,5 +1,5 @@
 import { FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi'
-import { products } from '../../miragejs/products'
+
 import {
   Container,
   ImageContainer,
@@ -15,16 +15,25 @@ import {
   RemoveButton
 } from './styles'
 
-interface IProductCart {
-  product: IProduct
+interface ICartSidebarProductsListItem extends ICartProduct {
+  increaseQuantity: () => {}
+  decreaseQuantity: () => {}
 }
 
-export const CartSidebarProductsListItem = ({ product }: IProductCart): JSX.Element => {
+export const CartSidebarProductsListItem = ({
+  product,
+  quantity,
+  increaseQuantity,
+  decreaseQuantity
+}: ICartSidebarProductsListItem): JSX.Element => {
   return (
     <>
       <Container role="listitem">
         <ImageContainer>
-          <ProductImage src={product.image.url} alt={product.image.description} />
+          <ProductImage
+            src={product.image.url}
+            alt={product.image.description}
+          />
         </ImageContainer>
 
         <ProductDetails>
@@ -39,7 +48,7 @@ export const CartSidebarProductsListItem = ({ product }: IProductCart): JSX.Elem
             <FiMinus size={22} color="#fff" />
           </MinusButton>
 
-          <Quantity>{product.quantity}</Quantity>
+          <Quantity>{quantity}</Quantity>
 
           <PlusButton>
             <FiPlus size={22} color="#fff" />
