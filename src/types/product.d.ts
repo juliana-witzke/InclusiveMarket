@@ -6,7 +6,6 @@ interface IProduct {
     url: string,
     description: string,
   }
-  quantity: number
 }
 
 interface ICartProduct {
