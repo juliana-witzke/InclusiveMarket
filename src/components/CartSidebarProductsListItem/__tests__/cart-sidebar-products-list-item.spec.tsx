@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { render, screen, fireEvent, within, getByLabelText } from '@testing-library/react'
+import { render, screen, fireEvent, within, getByLabelText, waitFor } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 
@@ -7,13 +7,13 @@ import { CartSidebarProductsListItem } from '..'
 import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
 
+let productsQuantity = 5
 const decreaseQuantityMock = jest.fn().mockImplementation(() => {})
-const increaseQuantityMock = jest.fn().mockImplementation(() => {})
+const increaseQuantityMock = jest.fn().mockImplementation(() => { productsQuantity + 1 })
 
 describe('<CartSidebarProductsListItem />', () => {
   let server: Server
   let cartProducts: ICartProduct[]
-  const productsQuantity = 5
 
   const fetchProducts = async () => {
     const { result: productsResult, waitForNextUpdate } =
@@ -53,6 +53,7 @@ describe('<CartSidebarProductsListItem />', () => {
 
   afterAll(() => {
     server.shutdown()
+    jest.clearAllMocks()
   })
 
   it('should render the product with its info', async () => {
@@ -71,7 +72,7 @@ describe('<CartSidebarProductsListItem />', () => {
     expect(quantityItem.textContent).toBe(productsQuantity.toString())
   })
   
-  it('should be able to increase quantity by 1', async () => {
+  it('should be able to increase product quantity by 1', async () => {
     renderCartSidebarProductList()
     const { product } = cartProducts[0]
     
@@ -83,7 +84,10 @@ describe('<CartSidebarProductsListItem />', () => {
     expect(increaseQuantityMock).not.toHaveBeenCalled()
     fireEvent.click(increaseButton)
     expect(increaseQuantityMock).toHaveBeenCalledTimes(1)
-    expect(quantityItem).toBe(productsQuantity + 1)
+    waitFor(() => {
+      renderCartSidebarProductList()
+      expect(quantityItem.textContent).toBe(productsQuantity + 1)
+    })
   })
   it.todo('should be able to decrease quantity by 1')
 })
