@@ -13,6 +13,7 @@ const increaseQuantityMock = jest.fn().mockImplementation(() => {})
 describe('<CartSidebarProductsListItem />', () => {
   let server: Server
   let cartProducts: ICartProduct[]
+  const productsQuantity = 5
 
   const fetchProducts = async () => {
     const { result: productsResult, waitForNextUpdate } =
@@ -23,7 +24,7 @@ describe('<CartSidebarProductsListItem />', () => {
     return productsResult.current.products
   }
 
-  const renderCartSidebar = () => {
+  const renderCartSidebarProductList = () => {
     return render(
       <div>
         {cartProducts.map(cartProduct => (
@@ -46,7 +47,7 @@ describe('<CartSidebarProductsListItem />', () => {
 
     cartProducts = (await fetchProducts()).map(product => ({
       product,
-      quantity: 1
+      quantity: productsQuantity
     }))
   })
 
@@ -55,7 +56,7 @@ describe('<CartSidebarProductsListItem />', () => {
   })
 
   it('should render the product with its info', async () => {
-    renderCartSidebar()
+    renderCartSidebarProductList()
 
     const { product } = cartProducts[0]
 
@@ -64,8 +65,9 @@ describe('<CartSidebarProductsListItem />', () => {
     const image = within(cartSidebarListItem).getByRole('img', {
       name: product.image.description
     })
-
+    const quantity = within(cartSidebarListItem).getByText(productsQuantity.toString())
     expect(image).toBeInTheDocument()
+    expect(quantity).toBeInTheDocument()
   })
 
   it.todo('should render a list of 5 products with their info')
