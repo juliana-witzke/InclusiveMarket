@@ -16,8 +16,8 @@ import {
 } from './styles'
 
 interface ICartSidebarProductsListItem extends ICartProduct {
-  increaseQuantity: () => {}
-  decreaseQuantity: () => {}
+  increaseQuantity: (productId: string) => void
+  decreaseQuantity: (productId: string) => void
 }
 
 export const CartSidebarProductsListItem = ({
@@ -50,11 +50,11 @@ export const CartSidebarProductsListItem = ({
 
           <Quantity aria-label='Current product quantity'>{quantity}</Quantity>
 
-          <PlusButton aria-label={`Increase ${product.title} quantity by 1`} onClick={increaseQuantity}>
+          <PlusButton aria-label={`Increase ${product.title} quantity by 1`} onClick={() => increaseQuantity(product.id)}>
             <FiPlus size={22} color="#fff" />
           </PlusButton>
 
-          <RemoveButton aria-label={`Decrease ${product.title} quantity by 1`} onClick={decreaseQuantity}>
+          <RemoveButton aria-label={`Decrease ${product.title} quantity by 1`} onClick={() => decreaseQuantity(product.id)}>
             <FiTrash2 size={22} color="#fd7272" />
           </RemoveButton>
         </Actions>
