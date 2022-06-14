@@ -18,12 +18,11 @@ interface IProductProps {
 
 export const ProductCard = ({ product, handleAddToCart }: IProductProps): JSX.Element => {
   return (
-    <Container data-testid="product-card">
+    <Container role='listitem'>
       <ImageContainer>
         <ProductImage
           src={product.image.url}
           alt={product.image.description}
-          data-testid="product-image"
         />
       </ImageContainer>
 

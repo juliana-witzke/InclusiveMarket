@@ -10,7 +10,7 @@ export const ProductList = ({ products }: IProductList): JSX.Element => {
   const { addProduct } = useCart()
 
   return (
-    <ProductsContainer>
+    <ProductsContainer role='list'>
       {products.map(product => (
         <ProductCard
           key={product.id}
