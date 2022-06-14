@@ -8,7 +8,7 @@ import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
 
 let productsQuantity = 5
-const decreaseQuantityMock = jest.fn().mockImplementation(() => {})
+const decreaseQuantityMock = jest.fn().mockImplementation(() => { productsQuantity - 1 })
 const increaseQuantityMock = jest.fn().mockImplementation(() => { productsQuantity + 1 })
 
 describe('<CartSidebarProductsListItem />', () => {
@@ -72,7 +72,7 @@ describe('<CartSidebarProductsListItem />', () => {
     expect(quantityItem.textContent).toBe(productsQuantity.toString())
   })
   
-  it('should be able to increase product quantity by 1', async () => {
+  it('should be able to increase product cart quantity by 1', async () => {
     renderCartSidebarProductList()
     const { product } = cartProducts[0]
     
@@ -89,5 +89,21 @@ describe('<CartSidebarProductsListItem />', () => {
       expect(quantityItem.textContent).toBe(productsQuantity + 1)
     })
   })
-  it.todo('should be able to decrease quantity by 1')
+  it('should be able to decrease product cart quantity by 1', async () => {
+    renderCartSidebarProductList()
+    const { product } = cartProducts[0]
+    
+    const cartSidebarListItem = await screen.findByRole('listitem')
+    const quantityItem = within(cartSidebarListItem).getByLabelText('Current product quantity')
+    const decreaseButton = within(cartSidebarListItem).getByRole('button', {
+      name: `Decrease ${product.title} quantity by 1`
+    })
+    expect(decreaseQuantityMock).not.toHaveBeenCalled()
+    fireEvent.click(decreaseButton)
+    expect(decreaseQuantityMock).toHaveBeenCalledTimes(1)
+    waitFor(() => {
+      renderCartSidebarProductList()
+      expect(quantityItem.textContent).toBe(productsQuantity - 1)
+    })
+  })
 })
