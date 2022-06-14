@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, fireEvent, within, getByLabelText } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 
@@ -65,12 +65,25 @@ describe('<CartSidebarProductsListItem />', () => {
     const image = within(cartSidebarListItem).getByRole('img', {
       name: product.image.description
     })
-    const quantity = within(cartSidebarListItem).getByText(productsQuantity.toString())
-    expect(image).toBeInTheDocument()
-    expect(quantity).toBeInTheDocument()
-  })
+    const quantityItem = within(cartSidebarListItem).getByLabelText('Current product quantity')
 
-  it.todo('should render a list of 5 products with their info')
-  it.todo('should be able to increase quantity by 1')
+    expect(image).toBeInTheDocument()
+    expect(quantityItem.textContent).toBe(productsQuantity.toString())
+  })
+  
+  it('should be able to increase quantity by 1', async () => {
+    renderCartSidebarProductList()
+    const { product } = cartProducts[0]
+    
+    const cartSidebarListItem = await screen.findByRole('listitem')
+    const quantityItem = within(cartSidebarListItem).getByLabelText('Current product quantity')
+    const increaseButton = within(cartSidebarListItem).getByRole('button', {
+      name: `Increase ${product.title} quantity by 1`
+    })
+    expect(increaseQuantityMock).not.toHaveBeenCalled()
+    fireEvent.click(increaseButton)
+    expect(increaseQuantityMock).toHaveBeenCalledTimes(1)
+    expect(quantityItem).toBe(productsQuantity + 1)
+  })
   it.todo('should be able to decrease quantity by 1')
 })
