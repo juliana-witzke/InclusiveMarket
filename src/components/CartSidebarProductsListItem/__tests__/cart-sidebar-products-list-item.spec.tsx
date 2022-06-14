@@ -8,8 +8,8 @@ import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
 
 let productsQuantity = 5
-const decreaseQuantityMock = jest.fn().mockImplementation(() => { productsQuantity - 1 })
-const increaseQuantityMock = jest.fn().mockImplementation(() => { productsQuantity + 1 })
+const decreaseQuantityMock = jest.fn().mockImplementation((productId: string) => { productsQuantity - 1 })
+const increaseQuantityMock = jest.fn().mockImplementation((productId: string) => { productsQuantity + 1 })
 
 describe('<CartSidebarProductsListItem />', () => {
   let server: Server
