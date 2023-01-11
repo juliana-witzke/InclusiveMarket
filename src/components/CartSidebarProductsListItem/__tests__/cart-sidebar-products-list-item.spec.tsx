@@ -67,8 +67,4 @@ describe('<CartSidebarProductsListItem />', () => {
 
     expect(image).toBeInTheDocument()
   })
-
-  it.todo('should render a list of 5 products with their info')
-  it.todo('should be able to increase quantity by 1')
-  it.todo('should be able to decrease quantity by 1')
 })
