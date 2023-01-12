@@ -44,7 +44,7 @@ export const CartSidebarProductsListItem = ({
         </ProductDetails>
 
         <Actions>
-          <MinusButton>
+          <MinusButton  aria-label={`Decrease ${product.title} quantity by 1`} onClick={() => decreaseQuantity(product.id)}>
             <FiMinus size={22} color="#fff" />
           </MinusButton>
 
@@ -54,7 +54,7 @@ export const CartSidebarProductsListItem = ({
             <FiPlus size={22} color="#fff" />
           </PlusButton>
 
-          <RemoveButton aria-label={`Decrease ${product.title} quantity by 1`} onClick={() => decreaseQuantity(product.id)}>
+          <RemoveButton>
             <FiTrash2 size={22} color="#fd7272" />
           </RemoveButton>
         </Actions>
