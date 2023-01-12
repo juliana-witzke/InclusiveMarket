@@ -95,4 +95,9 @@ describe('<Header />', () => {
 
     expect(openCartSidebarMock).toHaveBeenCalledTimes(1)
   })
+
+  it('should have a h1 element to respect DOMs typography hierarchy and care for accessibility', async () => {
+    renderHeader()
+    expect(screen.getByRole('heading', { name: "Inclusive Market" }))
+  })
 })

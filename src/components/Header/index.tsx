@@ -19,6 +19,7 @@ export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
         width={246}
         height={50}
       />
+      <h1>Inclusive Market</h1>
 
       <CartButton aria-label="Open cart" onClick={openCartSidebar}>
         <span aria-label="Number of products added to cart">
@@ -28,7 +29,6 @@ export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
         <FiShoppingCart
           size={22}
           color="#fff"
-          aria-label="Shopping cart icon"
           role="img"
         />
       </CartButton>
