@@ -53,6 +53,12 @@ describe('<Home />', () => {
     server.shutdown()
   })
 
+  it('should display product list', async () => {
+    renderHome()
+    const productList = await screen.findByRole('list')
+    expect(productList).toBeVisible()
+  })
+
   it('should open cart sidebar when clicking on the header button', async () => {
     renderHome()
 

@@ -15,8 +15,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        {/*eslint-disable-next-line react/no-unescaped-entities*/}
-        <title>Deh's Market</title>
+        <title>Aplicação Fullstack de Acessibilidade Digital com TDD</title>
       </Head>
 
       <Header openCartSidebar={() => setShowCartSidebar(true)} />
