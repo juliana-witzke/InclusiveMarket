@@ -53,6 +53,16 @@ describe('<Home />', () => {
     server.shutdown()
   })
 
+  it('should display product list', async () => {
+    renderHome()
+    const cartSidebar = await screen.findByRole('complementary', {
+      hidden: false
+    })
+
+    expect(cartSidebar).toBeVisible()
+    expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
+  })
+
   it('should open cart sidebar when clicking on the header button', async () => {
     renderHome()
 
