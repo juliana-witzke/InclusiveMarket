@@ -18,13 +18,15 @@ import {
 interface ICartSidebarProductsListItem extends ICartProduct {
   increaseQuantity: (productId: string) => void
   decreaseQuantity: (productId: string) => void
+  removeProduct: (productId: string) => void
 }
 
 export const CartSidebarProductsListItem = ({
   product,
   quantity,
   increaseQuantity,
-  decreaseQuantity
+  decreaseQuantity,
+  removeProduct
 }: ICartSidebarProductsListItem): JSX.Element => {
   return (
     <>
@@ -54,7 +56,7 @@ export const CartSidebarProductsListItem = ({
             <FiPlus size={22} color="#fff" />
           </PlusButton>
 
-          <RemoveButton>
+          <RemoveButton aria-label={`Remove ${product.title} from cart`} onClick={() => removeProduct(product.id)}>
             <FiTrash2 size={22} color="#fd7272" />
           </RemoveButton>
         </Actions>

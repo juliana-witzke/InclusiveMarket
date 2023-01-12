@@ -33,7 +33,7 @@ export const CartSidebar = ({
   closeCartSidebar,
   isHidden
 }: ICartSidebar): JSX.Element => {
-  const { products, increaseQuantity, decreaseQuantity } = useCart()
+  const { products, increaseQuantity, decreaseQuantity, removeProduct } = useCart()
 
   return (
     <>
@@ -57,6 +57,7 @@ export const CartSidebar = ({
               quantity={quantity}
               increaseQuantity={increaseQuantity}
               decreaseQuantity={decreaseQuantity}
+              removeProduct={removeProduct}
             />
           ))}
         </CartSidebarProductsList>

@@ -9,6 +9,7 @@ import { startMirageServer } from '../../../miragejs/server'
 let productsQuantity = 5
 const decreaseQuantityMock = jest.fn().mockImplementation((productId: string) => { productsQuantity - 1 })
 const increaseQuantityMock = jest.fn().mockImplementation((productId: string) => { productsQuantity + 1 })
+const removeProductMock = jest.fn().mockImplementation((productId: string) => { productsQuantity - productsQuantity})
 
 describe('<CartSidebarProductsListItem />', () => {
   let server: Server
@@ -33,6 +34,7 @@ describe('<CartSidebarProductsListItem />', () => {
             key={cartProduct.product.id}
             increaseQuantity={increaseQuantityMock}
             decreaseQuantity={decreaseQuantityMock}
+            removeProduct={removeProductMock}
           />
         ))}
       </div>
@@ -96,5 +98,16 @@ describe('<CartSidebarProductsListItem />', () => {
     fireEvent.click(decreaseButton)
     expect(decreaseQuantityMock).toHaveBeenCalledTimes(1)
     expect(decreaseQuantityMock).toHaveBeenCalledWith(product.id)
+  })
+  it('should be able to call function that removes product from cart', async () => {
+    const { product } = cartProducts[0]
+    const cartSidebarListItem = await screen.findByRole('listitem')
+    const removeButton = within(cartSidebarListItem).getByRole('button', {
+      name: `Remove ${product.title} from cart`
+    })
+    expect(removeProductMock).not.toHaveBeenCalled()
+    fireEvent.click(removeButton)
+    expect(removeProductMock).toHaveBeenCalledTimes(1)
+    expect(removeProductMock).toHaveBeenCalledWith(product.id)
   })
 })
