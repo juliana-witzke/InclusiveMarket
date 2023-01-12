@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.li`
   height: 286px;
   min-width: 220px;
   width: calc(100% - 20px);

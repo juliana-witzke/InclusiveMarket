@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const ProductsContainer = styled.div`
+export const ProductsContainer = styled.ul`
   max-width: 1020px;
   margin: 30px auto;
   display: grid;

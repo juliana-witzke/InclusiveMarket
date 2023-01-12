@@ -12,18 +12,18 @@ import {
 } from './styles'
 
 interface IProductProps {
-  product: IProduct,
+  product: IProduct
   handleAddToCart: (product: IProduct) => void
 }
 
-export const ProductCard = ({ product, handleAddToCart }: IProductProps): JSX.Element => {
+export const ProductCard = ({
+  product,
+  handleAddToCart
+}: IProductProps): JSX.Element => {
   return (
-    <Container role='listitem'>
+    <Container role="listitem">
       <ImageContainer>
-        <ProductImage
-          src={product.image.url}
-          alt={product.image.description}
-        />
+        <ProductImage src={product.image.url} alt={product.image.description} />
       </ImageContainer>
 
       <ProductDetails>
@@ -33,7 +33,10 @@ export const ProductCard = ({ product, handleAddToCart }: IProductProps): JSX.El
         </Price>
       </ProductDetails>
 
-      <AddButton aria-label={`Add ${product.title.toLowerCase()} to cart`} onClick={() => handleAddToCart(product)}>
+      <AddButton
+        aria-label={`Add ${product.title.toLowerCase()} to cart`}
+        onClick={() => handleAddToCart(product)}
+      >
         <FiPlus size={22} color="#fff" />
       </AddButton>
     </Container>
