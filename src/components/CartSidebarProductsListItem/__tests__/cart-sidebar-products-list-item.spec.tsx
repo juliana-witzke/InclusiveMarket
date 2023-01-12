@@ -57,10 +57,9 @@ describe('<CartSidebarProductsListItem />', () => {
 
   afterAll(() => {
     server.shutdown()
-    // jest.clearAllMocks()
   })
 
-  it.skip('should render the product with its info', async () => {
+  it('should render the product with its info', async () => {
     const { product } = cartProducts[0]
 
     const cartSidebarListItem = await screen.findByRole('listitem')
@@ -74,36 +73,28 @@ describe('<CartSidebarProductsListItem />', () => {
     expect(quantityItem.textContent).toBe(productsQuantity.toString())
   })
   
-  it.skip('should be able to increase product cart quantity by 1', async () => {
+  it('should be able to call function that increases product cart quantity by 1 with correct property', async () => {
     const { product } = cartProducts[0]
     
     const cartSidebarListItem = await screen.findByRole('listitem')
-    const quantityItem = within(cartSidebarListItem).getByLabelText('Current product quantity')
+
     const increaseButton = within(cartSidebarListItem).getByRole('button', {
       name: `Increase ${product.title} quantity by 1`
     })
     expect(increaseQuantityMock).not.toHaveBeenCalled()
     fireEvent.click(increaseButton)
     expect(increaseQuantityMock).toHaveBeenCalledTimes(1)
-    await waitFor(() => {
-      renderCartSidebarProductList()
-      expect(quantityItem.textContent).toBe(productsQuantity + 1)
-    })
+    expect(increaseQuantityMock).toHaveBeenCalledWith(product.id)
   })
-  it.skip('should be able to decrease product cart quantity by 1', async () => {
+  it('should be able to call function that decreases product cart quantity by 1 with correct property', async () => {
     const { product } = cartProducts[0]
-    
     const cartSidebarListItem = await screen.findByRole('listitem')
-    const quantityItem = within(cartSidebarListItem).getByLabelText('Current product quantity')
     const decreaseButton = within(cartSidebarListItem).getByRole('button', {
       name: `Decrease ${product.title} quantity by 1`
     })
     expect(decreaseQuantityMock).not.toHaveBeenCalled()
     fireEvent.click(decreaseButton)
     expect(decreaseQuantityMock).toHaveBeenCalledTimes(1)
-    await waitFor(() => {
-      renderCartSidebarProductList()
-      expect(quantityItem.textContent).toBe(productsQuantity - 1)
-    })
+    expect(decreaseQuantityMock).toHaveBeenCalledWith(product.id)
   })
 })
