@@ -17,7 +17,7 @@ export const Sidebar = styled.aside`
   right: 0;
   width: 440px;
   height: 100vh;
-  background: #fff5f5;
+  background: #4a497a;
   box-shadow: -24px 0px 40px #f4abab;
   padding: 30px;
 

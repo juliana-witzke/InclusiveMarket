@@ -6,7 +6,7 @@ export const Container = styled.li`
   width: calc(100% - 20px);
   margin: 15px;
   background: #fff;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1), 0px 42px 32px -30px #ebc5c5;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1), 0px 42px 32px -30px #1f1f49;
   border-radius: 30px 30px 36px 30px;
 
   display: flex;
@@ -45,13 +45,13 @@ export const Price = styled.p`
   font-family: 'Nunito';
   font-weight: 800;
   font-size: 16px;
-  color: #fd7272;
+  color: #008924;
   margin: 0;
 `
 
 export const Unit = styled.span`
   font-weight: 700;
-  color: #80a2ad;
+  color: #0a4565;
 `
 
 export const AddButton = styled.button`
@@ -62,9 +62,8 @@ export const AddButton = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #fd7272;
-  box-shadow: 0px 5px 20px -5px #ea8686;
-
+  background: #008924;
+  box-shadow: 0px 5px 20px -5px #008924;
   display: flex;
   align-items: center;
   justify-content: center;
