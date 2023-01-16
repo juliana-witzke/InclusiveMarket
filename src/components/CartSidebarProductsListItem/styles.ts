@@ -51,7 +51,7 @@ export const Price = styled.p`
 
 export const Unit = styled.span`
   font-weight: 700;
-  color: #80a2ad;
+  color: #fff;
 `
 
 export const Quantity = styled.span`
@@ -61,7 +61,7 @@ export const Quantity = styled.span`
 `
 
 export const MinusButton = styled.button`
-  background-color: #80a2ad;
+  background-color: #fff;
 `
 
 export const PlusButton = styled.button`

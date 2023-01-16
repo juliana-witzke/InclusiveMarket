@@ -43,7 +43,7 @@ export const CartSidebar = ({
       >
         <Header>
           <CloseButton aria-label={'Close'} onClick={closeCartSidebar}>
-            <FiX size={26} color="#fd7272" />
+            <FiX size={26} color="#00DD06" />
           </CloseButton>
 
           <h3>Cart</h3>

@@ -7,7 +7,7 @@ export const Overlay = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(253, 114, 114, 0.31);
+  background: rgb(31 31 73 / 51%);
 `
 
 export const Sidebar = styled.aside`
@@ -18,7 +18,7 @@ export const Sidebar = styled.aside`
   width: 440px;
   height: 100vh;
   background: #4a497a;
-  box-shadow: -24px 0px 40px #f4abab;
+  box-shadow: -24px 0px 40px #1f1f49;
   padding: 30px;
 
   display: flex;
@@ -46,7 +46,7 @@ export const Header = styled.header`
 
   & h3 {
     margin: 0 0 0 10px;
-    color: #80a2ad;
+    color: #fff;
     font-family: 'Nunito';
     font-weight: 700;
     font-size: 26px;
@@ -83,13 +83,13 @@ export const TotalPrice = styled.div`
   & p:nth-child(1) {
     font-weight: 700;
     font-size: 22px;
-    color: #80a2ad;
+    color: #fff;
   }
 
   & p:nth-child(2) {
     font-weight: 800;
     font-size: 32px;
-    color: #fd7272;
+    color: #00DD06;
   }
 `
 
@@ -97,8 +97,8 @@ export const CtaButton = styled.button`
   font-family: 'Nunito';
   font-weight: 700;
   font-size: 22px;
-  background: #fd7272;
-  color: #fff;
+  background: #00DD06;
+  color: #000;
   width: 300px;
   height: 50px;
   border-radius: 34px;
