@@ -57,7 +57,7 @@ export const CartSidebarProductsListItem = ({
           </PlusButton>
 
           <RemoveButton aria-label={`Remove ${product.title} from cart`} onClick={() => removeProduct(product.id)}>
-            <FiTrash2 size={22} color="#fd7272" />
+            <FiTrash2 size={22} color="#008924" />
           </RemoveButton>
         </Actions>
       </Container>

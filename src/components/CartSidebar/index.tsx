@@ -42,7 +42,7 @@ export const CartSidebar = ({
         style={{ display: isHidden ? 'none' : 'flex' }}
       >
         <Header>
-          <CloseButton aria-label={'Close'} onClick={closeCartSidebar}>
+          <CloseButton aria-label="Close cart" onClick={closeCartSidebar}>
             <FiX size={26} color="#00DD06" />
           </CloseButton>
 

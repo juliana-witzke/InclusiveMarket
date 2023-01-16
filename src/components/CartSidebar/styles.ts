@@ -58,6 +58,7 @@ export const CartSidebarProductsList = styled.ul`
   flex-direction: column;
   flex-grow: 1;
   list-style: none;
+  padding: 0;
 `
 
 export const Footer = styled.footer`

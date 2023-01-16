@@ -17,7 +17,7 @@ export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
         <LogoContainer>
           <Image
             src="/images/dehsmarket.svg"
-            alt="Inclusive market's logo"
+            alt="Inclusive market logo"
             width="100%"
             height={75}
           />

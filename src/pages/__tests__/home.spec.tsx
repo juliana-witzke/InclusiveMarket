@@ -76,7 +76,7 @@ describe('<Home />', () => {
     expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
   })
 
-  it('should close the sidebar when clicking the "x" (close) button', async () => {
+  it('should change sidebar visibility when clicking the "x" (close) button', async () => {
     renderHome()
 
     const openCartSidebarButton = await screen.findByRole('button', {
@@ -89,7 +89,7 @@ describe('<Home />', () => {
       hidden: false
     })
 
-    const closeButtonElement = screen.getByLabelText('Close')
+    const closeButtonElement = screen.getByLabelText('Close cart')
 
     fireEvent.click(closeButtonElement)
 

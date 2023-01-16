@@ -42,7 +42,7 @@ describe('<Header />', () => {
   it('should render application logo with an alternative text', async () => {
     renderHeader()
 
-    const applicationLogo = await screen.findByAltText("Deh's market logo")
+    const applicationLogo = await screen.findByAltText("Inclusive market logo")
 
     expect(applicationLogo).toBeInTheDocument()
   })

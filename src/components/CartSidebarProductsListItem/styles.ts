@@ -45,7 +45,7 @@ export const Price = styled.p`
   font-family: 'Nunito';
   font-weight: 800;
   font-size: 14px;
-  color: #fd7272;
+  color: #008924;
   margin: 0;
 `
 
@@ -55,17 +55,17 @@ export const Unit = styled.span`
 `
 
 export const Quantity = styled.span`
-  color: #fd7272;
+  color: #008924;
   font-family: 'Nunito';
   font-weight: 700;
 `
 
 export const MinusButton = styled.button`
-  background-color: #fff;
+  background-color: #008924;
 `
 
 export const PlusButton = styled.button`
-  background-color: #fd7272;
+  background-color: #008924;
 `
 
 export const RemoveButton = styled.button`

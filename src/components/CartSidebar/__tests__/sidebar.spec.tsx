@@ -88,7 +88,7 @@ describe('<CartSidebar />', () => {
     expect(cartSidebar).toBeVisible()
     expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
 
-    const closeButtonElement = screen.getByLabelText('Close')
+    const closeButtonElement = screen.getByLabelText('Close cart')
 
     fireEvent.click(closeButtonElement)
 
