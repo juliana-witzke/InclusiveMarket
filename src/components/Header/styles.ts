@@ -1,19 +1,24 @@
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
-  max-width: 1000px;
-  margin: 0 auto 60px;
-  padding: 30px 30px 0;
   box-shadow: 0px 0px 15px rgb(0 0 0 / 10%), 0px 2px 22px 20px #1f1f49;
   background-color: #1f1f49;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   h1 {
     color: #fff;
   }
+`
+
+export const ContentContainer = styled.div`
+width: 1030px;
+padding: 10px 30px;
+display: flex;
+justify-content: space-between;
+align-items: center;
 `
 
 export const LogoContainer = styled.div`
