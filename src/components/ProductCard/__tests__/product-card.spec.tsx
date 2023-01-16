@@ -48,4 +48,11 @@ describe("<ProductCard />", () => {
         fireEvent.click(addToCartButton)
         expect(addProductMock).toHaveBeenCalledTimes(1)
     })
+
+    it("should add two products when clicking + button twice", async () => {
+        const addToCartButton = await screen.findByRole('button', { name: `Add ${availableProduct.title.toLowerCase()} to cart`})
+        fireEvent.click(addToCartButton)
+        fireEvent.click(addToCartButton)
+        expect(addProductMock).toHaveBeenCalledTimes(2)
+    })
 })
