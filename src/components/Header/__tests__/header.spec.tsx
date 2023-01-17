@@ -9,6 +9,7 @@ import { useFetchProducts } from '../../../hooks/useFetchProducts'
 import { startMirageServer } from '../../../miragejs/server'
 
 const openCartSidebarMock = jest.fn().mockImplementation(() => {})
+const getNumberOfProductsInTheCartMock = jest.fn()
 
 describe('<Header />', () => {
   let server: Server
@@ -31,7 +32,8 @@ describe('<Header />', () => {
           addProduct: () => {},
           removeProduct: () => {},
           increaseQuantity: () => {},
-          decreaseQuantity: () => {}
+          decreaseQuantity: () => {},
+          getNumberOfProductsInTheCart: getNumberOfProductsInTheCartMock
         }}
       >
         <Header openCartSidebar={openCartSidebarMock} />
@@ -42,7 +44,7 @@ describe('<Header />', () => {
   it('should render application logo with an alternative text', async () => {
     renderHeader()
 
-    const applicationLogo = await screen.findByAltText("Inclusive market logo")
+    const applicationLogo = await screen.findByAltText('Inclusive market logo')
 
     expect(applicationLogo).toBeInTheDocument()
   })
@@ -50,6 +52,7 @@ describe('<Header />', () => {
   it('should show 0 products added on cart button when nothing was added to cart', () => {
     cartProducts = []
 
+    getNumberOfProductsInTheCartMock.mockReturnValue(0)
     renderHeader()
 
     const cartTotalPriceElement = screen.getByLabelText(
@@ -62,6 +65,7 @@ describe('<Header />', () => {
 
   it('should show the correct number of products added on cart button when something was added to cart', async () => {
     const numberOfProducts = 9
+    const productsQuantity = 2
 
     server = startMirageServer({ environment: 'test' })
 
@@ -69,9 +73,10 @@ describe('<Header />', () => {
 
     cartProducts = (await fetchProducts()).map(product => ({
       product,
-      quantity: 1
+      quantity: productsQuantity
     }))
 
+    getNumberOfProductsInTheCartMock.mockReturnValue(18)
     renderHeader()
 
     const cartTotalPriceElement = screen.getByLabelText(
@@ -79,7 +84,9 @@ describe('<Header />', () => {
     )
 
     expect(cartTotalPriceElement).toBeInTheDocument()
-    expect(cartTotalPriceElement.textContent).toBe(numberOfProducts.toString())
+    expect(cartTotalPriceElement.textContent).toBe(
+      (numberOfProducts * productsQuantity).toString()
+    )
 
     server.shutdown()
   })
@@ -98,6 +105,6 @@ describe('<Header />', () => {
 
   it('should have a h1 element to respect DOMs typography hierarchy and care for accessibility', async () => {
     renderHeader()
-    expect(screen.getByRole('heading', { name: "Inclusive Market" }))
+    expect(screen.getByRole('heading', { name: 'Inclusive Market' }))
   })
 })

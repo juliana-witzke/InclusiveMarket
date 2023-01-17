@@ -30,7 +30,8 @@ describe('<Home />', () => {
           addProduct: () => {},
           removeProduct: () => {},
           increaseQuantity: () => {},
-          decreaseQuantity: () => {}
+          decreaseQuantity: () => {},
+          getNumberOfProductsInTheCart: () => 0
         }}
       >
         <Home />
