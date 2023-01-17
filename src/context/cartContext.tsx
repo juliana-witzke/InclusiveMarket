@@ -15,12 +15,17 @@ const CartProvider: React.FC = ({ children }) => {
 
   const addProduct = useCallback((product: IProduct) => {
     setProducts(previousState => {
-      const productAlreadyExists =
-        previousState.filter(
-          previousProduct => previousProduct.product.id === product.id
-        ).length !== 0
+      const productIndex = previousState.findIndex(
+        previousProduct => previousProduct.product.id === product.id
+      )
 
-      if (productAlreadyExists) return [...previousState]
+      const productAlreadyExists = productIndex !== -1
+
+      if (productAlreadyExists) {
+        previousState[productIndex].quantity += 1
+
+        return previousState
+      }
 
       return [...previousState, { product, quantity: 1 }]
     })

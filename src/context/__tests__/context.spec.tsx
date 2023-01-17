@@ -55,7 +55,7 @@ describe('Cart Context', () => {
     })
   })
 
-  it('should not be able to add the same product twice', async () => {
+  it("should be able to increase a product's quantity when trying to add it twice", async () => {
     const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
@@ -66,12 +66,11 @@ describe('Cart Context', () => {
 
     act(() => result.current.addProduct(product))
     act(() => result.current.addProduct(product))
-    act(() => result.current.addProduct(product))
 
     expect(result.current.products.length).toBe(1)
     expect(result.current.products[0]).toEqual({
       product,
-      quantity: 1
+      quantity: 2
     })
   })
 
