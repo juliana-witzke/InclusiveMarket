@@ -6,6 +6,7 @@ interface ICartContextData {
   removeProduct: (productId: string) => void
   increaseQuantity: (productId: string) => void
   decreaseQuantity: (productId: string) => void
+  getNumberOfProductsInTheCart: () => number
 }
 
 const CartContext = createContext<ICartContextData>({} as ICartContextData)
@@ -70,6 +71,14 @@ const CartProvider: React.FC = ({ children }) => {
     )
   }, [])
 
+  const getNumberOfProductsInTheCart = useCallback(() => {
+    let totalNumberOfProducts = 0
+
+    products.forEach(product => (totalNumberOfProducts += product.quantity))
+
+    return totalNumberOfProducts
+  }, [products])
+
   return (
     <CartContext.Provider
       value={{
@@ -77,7 +86,8 @@ const CartProvider: React.FC = ({ children }) => {
         addProduct,
         removeProduct,
         increaseQuantity,
-        decreaseQuantity
+        decreaseQuantity,
+        getNumberOfProductsInTheCart
       }}
     >
       {children}

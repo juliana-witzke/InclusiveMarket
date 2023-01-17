@@ -200,4 +200,33 @@ describe('Cart Context', () => {
       quantity: 1
     })
   })
+
+  it('should be able to get number of products in the cart', async () => {
+    const availableProducts = await fetchProducts()
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper
+    })
+
+    const firstProduct = availableProducts[0]
+    const secondProduct = availableProducts[1]
+    const thirdProduct = availableProducts[2]
+
+    act(() => result.current.addProduct(firstProduct))
+
+    act(() => result.current.addProduct(secondProduct))
+    act(() => result.current.increaseQuantity(secondProduct.id))
+
+    act(() => result.current.addProduct(thirdProduct))
+    act(() => result.current.removeProduct(thirdProduct.id))
+
+    act(() => result.current.addProduct(thirdProduct))
+    act(() => result.current.increaseQuantity(thirdProduct.id))
+    act(() => result.current.increaseQuantity(thirdProduct.id))
+    act(() => result.current.decreaseQuantity(thirdProduct.id))
+    act(() => result.current.increaseQuantity(thirdProduct.id))
+
+    expect(result.current.products.length).toBe(3)
+    expect(result.current.getNumberOfProductsInTheCart()).toBe(6)
+  })
 })
