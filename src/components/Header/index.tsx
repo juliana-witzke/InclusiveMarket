@@ -9,7 +9,7 @@ interface IHeader {
 }
 
 export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
-  const { getNumberOfProductsInTheCart } = useCart()
+  const { numberOfProductsInTheCart } = useCart()
 
   return (
     <HeaderContainer>
@@ -26,7 +26,7 @@ export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
 
         <CartButton aria-label="Open cart" onClick={openCartSidebar}>
           <span aria-label="Number of products added to cart">
-            {getNumberOfProductsInTheCart()}
+            {numberOfProductsInTheCart}
           </span>
 
           <FiShoppingCart size={22} color="#fff" role="img" />

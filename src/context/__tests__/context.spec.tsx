@@ -55,6 +55,26 @@ describe('Cart Context', () => {
     })
   })
 
+  it('should be able to add a product more than once', async () => {
+    const availableProducts = await fetchProducts()
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper
+    })
+
+    const product = availableProducts[0]
+
+    act(() => result.current.addProduct(product))
+    act(() => result.current.addProduct(product))
+    act(() => result.current.addProduct(product))
+
+    expect(result.current.products.length).toBe(1)
+    expect(result.current.products[0]).toEqual({
+      product: product,
+      quantity: 3
+    })
+  })
+
   it("should be able to increase a product's quantity when trying to add it twice", async () => {
     const availableProducts = await fetchProducts()
 
@@ -227,6 +247,6 @@ describe('Cart Context', () => {
     act(() => result.current.increaseQuantity(thirdProduct.id))
 
     expect(result.current.products.length).toBe(3)
-    expect(result.current.getNumberOfProductsInTheCart()).toBe(6)
+    expect(result.current.numberOfProductsInTheCart).toBe(6)
   })
 })
