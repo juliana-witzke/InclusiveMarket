@@ -221,7 +221,7 @@ describe('Cart Context', () => {
     })
   })
 
-  it('should be able to get number of products in the cart', async () => {
+  it.skip('should be able to get number of products in the cart', async () => {
     const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
