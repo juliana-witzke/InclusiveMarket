@@ -116,6 +116,30 @@ describe('Cart Context', () => {
     })
   })
 
+  it('should update number of products in the cart when removing a product', async () => {
+    const availableProducts = await fetchProducts()
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper
+    })
+
+    const firstProduct = availableProducts[0]
+    const secondProduct = availableProducts[1]
+
+    act(() => result.current.addProduct(firstProduct))
+    act(() => result.current.addProduct(secondProduct))
+    act(() => result.current.increaseQuantity(secondProduct.id))
+    act(() => result.current.increaseQuantity(secondProduct.id))
+    act(() => result.current.increaseQuantity(secondProduct.id))
+    act(() => result.current.increaseQuantity(secondProduct.id))
+    act(() => result.current.addProduct(secondProduct))
+
+    act(() => result.current.removeProduct(secondProduct.id))
+
+    expect(result.current.products.length).toBe(1)
+    expect(result.current.numberOfProductsInTheCart).toBe(1)
+  })
+
   it("should be able to increase a product's quantity by 1", async () => {
     const availableProducts = await fetchProducts()
 
@@ -221,7 +245,7 @@ describe('Cart Context', () => {
     })
   })
 
-  it.skip('should be able to get number of products in the cart', async () => {
+  it('should be able to get number of products in the cart', async () => {
     const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
