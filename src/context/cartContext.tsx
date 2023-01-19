@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 interface ICartContextData {
   products: Array<ICartProduct>
@@ -13,11 +19,12 @@ const CartContext = createContext<ICartContextData>({} as ICartContextData)
 
 const CartProvider: React.FC = ({ children }) => {
   const [products, setProducts] = useState<ICartProduct[]>([])
-  const [numberOfProductsInTheCart, setNumberOfProductsInTheCart] = useState<number>(0)
+  const [numberOfProductsInTheCart, setNumberOfProductsInTheCart] =
+    useState<number>(0)
 
   const addProduct = useCallback((product: IProduct) => {
-    setNumberOfProductsInTheCart(previousNumberOfProducts => 
-      previousNumberOfProducts + 1
+    setNumberOfProductsInTheCart(
+      previousNumberOfProducts => previousNumberOfProducts + 1
     )
     setProducts(previousState => {
       const productIndex = previousState.findIndex(
@@ -36,16 +43,26 @@ const CartProvider: React.FC = ({ children }) => {
   }, [])
 
   const removeProduct = useCallback((productId: string) => {
-    setProducts(previousState =>
-      previousState.filter(
-        previousProduct => previousProduct.product.id !== productId
+    setProducts(previousState => {
+      let productRemovedQuantity = 0
+
+      const filteredState = previousState.filter(previousProduct => {
+        if (previousProduct.product.id !== productId) return previousProduct
+        productRemovedQuantity = previousProduct.quantity
+      })
+
+      setNumberOfProductsInTheCart(
+        previousNumberOfProducts =>
+          previousNumberOfProducts - productRemovedQuantity
       )
-    )
+
+      return filteredState
+    })
   }, [])
 
   const increaseQuantity = useCallback((productId: string) => {
-    setNumberOfProductsInTheCart(previousNumberOfProducts =>
-      previousNumberOfProducts + 1
+    setNumberOfProductsInTheCart(
+      previousNumberOfProducts => previousNumberOfProducts + 1
     )
     setProducts(previousState =>
       previousState.map(previousProduct => {
@@ -60,8 +77,8 @@ const CartProvider: React.FC = ({ children }) => {
   }, [])
 
   const decreaseQuantity = useCallback((productId: string) => {
-    setNumberOfProductsInTheCart(previousNumberOfProducts =>
-      previousNumberOfProducts - 1
+    setNumberOfProductsInTheCart(
+      previousNumberOfProducts => previousNumberOfProducts - 1
     )
     setProducts(previousState =>
       previousState.map(previousProduct => {
