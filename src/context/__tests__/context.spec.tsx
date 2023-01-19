@@ -154,14 +154,18 @@ describe('Cart Context', () => {
       wrapper
     })
 
-    const product = availableProducts[0]
+    const firstProduct = availableProducts[0]
+    const secondProduct = availableProducts[1]
 
-    act(() => result.current.addProduct(product))
-    act(() => result.current.decreaseQuantity(product.id))
-    act(() => result.current.decreaseQuantity(product.id))
-    act(() => result.current.decreaseQuantity(product.id))
+    act(() => result.current.addProduct(firstProduct))
+    act(() => result.current.increaseQuantity(firstProduct.id))
+    act(() => result.current.increaseQuantity(firstProduct.id))
 
-    expect(result.current.numberOfProductsInTheCart).toBe(1)
+    act(() => result.current.addProduct(secondProduct))
+    act(() => result.current.decreaseQuantity(secondProduct.id))
+    act(() => result.current.decreaseQuantity(secondProduct.id))
+
+    expect(result.current.numberOfProductsInTheCart).toBe(4)
   })
 
   it("should be able to increase a product's quantity by 1", async () => {
