@@ -116,7 +116,7 @@ describe('Cart Context', () => {
     })
   })
 
-  it('should update number of products in the cart when removing a product', async () => {
+  it("should update number of products in the cart when changing product's quantity", async () => {
     const availableProducts = await fetchProducts()
 
     const { result } = renderHook(() => useCart(), {
@@ -125,18 +125,42 @@ describe('Cart Context', () => {
 
     const firstProduct = availableProducts[0]
     const secondProduct = availableProducts[1]
+    const thirdProduct = availableProducts[2]
 
+    // First Product
     act(() => result.current.addProduct(firstProduct))
-    act(() => result.current.addProduct(secondProduct))
-    act(() => result.current.increaseQuantity(secondProduct.id))
-    act(() => result.current.increaseQuantity(secondProduct.id))
-    act(() => result.current.increaseQuantity(secondProduct.id))
-    act(() => result.current.increaseQuantity(secondProduct.id))
-    act(() => result.current.addProduct(secondProduct))
 
+    // Second Product
+    act(() => result.current.addProduct(secondProduct))
+    act(() => result.current.increaseQuantity(secondProduct.id))
+    act(() => result.current.decreaseQuantity(secondProduct.id))
+    act(() => result.current.addProduct(secondProduct))
     act(() => result.current.removeProduct(secondProduct.id))
 
-    expect(result.current.products.length).toBe(1)
+    // Third Product
+    act(() => result.current.addProduct(thirdProduct))
+    act(() => result.current.increaseQuantity(thirdProduct.id))
+    act(() => result.current.increaseQuantity(thirdProduct.id))
+    act(() => result.current.decreaseQuantity(thirdProduct.id))
+
+    expect(result.current.products.length).toBe(2)
+    expect(result.current.numberOfProductsInTheCart).toBe(3)
+  })
+
+  it('should never hit 0 when decreasing quantity of a product in number of products in the cart', async () => {
+    const availableProducts = await fetchProducts()
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper
+    })
+
+    const product = availableProducts[0]
+
+    act(() => result.current.addProduct(product))
+    act(() => result.current.decreaseQuantity(product.id))
+    act(() => result.current.decreaseQuantity(product.id))
+    act(() => result.current.decreaseQuantity(product.id))
+
     expect(result.current.numberOfProductsInTheCart).toBe(1)
   })
 
