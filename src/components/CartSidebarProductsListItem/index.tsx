@@ -66,7 +66,9 @@ export const CartSidebarProductsListItem = ({
             <FiMinus size={22} color="#fff" />
           </MinusButton>
 
-          <Quantity aria-label="Current product quantity">{quantity}</Quantity>
+          <Quantity aria-label="Current product quantity">
+            {productQuantity}
+          </Quantity>
 
           <PlusButton
             aria-label={`Increase ${product.title} quantity by 1`}

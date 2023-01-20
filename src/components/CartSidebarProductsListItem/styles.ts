@@ -62,6 +62,11 @@ export const Quantity = styled.span`
 
 export const MinusButton = styled.button`
   background-color: #008924;
+
+  &[disabled],
+  &:disabled {
+    filter: saturate(0);
+  }
 `
 
 export const PlusButton = styled.button`
