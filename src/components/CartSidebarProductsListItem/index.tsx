@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi'
 
 import {
@@ -28,6 +29,12 @@ export const CartSidebarProductsListItem = ({
   decreaseQuantity,
   removeProduct
 }: ICartSidebarProductsListItem): JSX.Element => {
+  const [productQuantity, setProductQuantity] = useState<number>(quantity)
+
+  useEffect(() => {
+    setProductQuantity(quantity)
+  }, [quantity])
+
   return (
     <>
       <Container role="listitem">
@@ -46,17 +53,32 @@ export const CartSidebarProductsListItem = ({
         </ProductDetails>
 
         <Actions>
-          <MinusButton  aria-label={`Decrease ${product.title} quantity by 1`} onClick={() => decreaseQuantity(product.id)}>
+          <MinusButton
+            disabled={productQuantity === 1}
+            aria-label={`Decrease ${product.title} quantity by 1`}
+            onClick={() => {
+              if (productQuantity > 1) {
+                decreaseQuantity(product.id)
+                setProductQuantity(previousState => previousState - 1)
+              }
+            }}
+          >
             <FiMinus size={22} color="#fff" />
           </MinusButton>
 
-          <Quantity aria-label='Current product quantity'>{quantity}</Quantity>
+          <Quantity aria-label="Current product quantity">{quantity}</Quantity>
 
-          <PlusButton aria-label={`Increase ${product.title} quantity by 1`} onClick={() => increaseQuantity(product.id)}>
+          <PlusButton
+            aria-label={`Increase ${product.title} quantity by 1`}
+            onClick={() => increaseQuantity(product.id)}
+          >
             <FiPlus size={22} color="#fff" />
           </PlusButton>
 
-          <RemoveButton aria-label={`Remove ${product.title} from cart`} onClick={() => removeProduct(product.id)}>
+          <RemoveButton
+            aria-label={`Remove ${product.title} from cart`}
+            onClick={() => removeProduct(product.id)}
+          >
             <FiTrash2 size={22} color="#008924" />
           </RemoveButton>
         </Actions>
