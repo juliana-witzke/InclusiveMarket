@@ -135,7 +135,26 @@ describe('<CartSidebarProductsListItem />', () => {
 
     expect(decreaseQuantityMock).toHaveBeenCalledTimes(4)
   })
-  it.skip("should disable minus button if product's quantity is 1", async () => {})
+  it("should disable minus button if product's quantity is 1", async () => {
+    const { product } = cartProducts[0]
+    const cartSidebarListItem = await screen.findByRole('listitem')
+
+    const decreaseButton = within(cartSidebarListItem).getByRole('button', {
+      name: `Decrease ${product.title} quantity by 1`
+    })
+
+    expect(decreaseButton).not.toHaveAttribute('disabled')
+
+    for (
+      let numberOfCalls = 0;
+      numberOfCalls <= productsQuantity + 1;
+      numberOfCalls++
+    ) {
+      fireEvent.click(decreaseButton)
+    }
+
+    expect(decreaseButton).toHaveAttribute('disabled')
+  })
   it('should be able to call function that removes product from cart', async () => {
     const { product } = cartProducts[0]
     const cartSidebarListItem = await screen.findByRole('listitem')
