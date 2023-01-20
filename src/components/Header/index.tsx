@@ -2,7 +2,13 @@ import Image from 'next/image'
 import { FiShoppingCart } from 'react-icons/fi'
 
 import { useCart } from '../../context/cartContext'
-import { CartButton, HeaderContainer, LogoContainer, ContentContainer } from './styles'
+import {
+  CartButton,
+  HeaderContainer,
+  LogoContainer,
+  ContentContainer,
+  SkipToMainContentLink
+} from './styles'
 
 interface IHeader {
   openCartSidebar: () => void
@@ -13,6 +19,10 @@ export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
 
   return (
     <HeaderContainer>
+      <SkipToMainContentLink href="#main-content">
+        Skip to main content
+      </SkipToMainContentLink>
+
       <ContentContainer>
         <LogoContainer>
           <Image

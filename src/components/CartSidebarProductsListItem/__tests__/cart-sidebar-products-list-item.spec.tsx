@@ -2,9 +2,7 @@ import {
   render,
   screen,
   fireEvent,
-  within,
-  getByLabelText,
-  waitFor
+  within
 } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'

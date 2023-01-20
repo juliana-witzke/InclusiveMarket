@@ -8,17 +8,37 @@ export const HeaderContainer = styled.header`
   justify-content: center;
   align-items: center;
 
+  position: relative;
+
   h1 {
     color: #fff;
   }
 `
 
 export const ContentContainer = styled.div`
-width: 1030px;
-padding: 10px 30px;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  width: 1030px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const SkipToMainContentLink = styled.a`
+  opacity: 0;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 20px;
+  padding: 5px 10px;
+
+  &:focus {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 1180px) {
+    display: none;
+  }
 `
 
 export const LogoContainer = styled.div`
@@ -29,7 +49,7 @@ export const LogoContainer = styled.div`
 export const CartButton = styled.button`
   width: 75px;
   height: 40px;
-  background: #00A12A;
+  background: #00a12a;
   border-radius: 34px;
   border: 0;
   padding: 0 14px 0 16px;

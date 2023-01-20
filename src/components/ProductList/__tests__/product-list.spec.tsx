@@ -36,9 +36,16 @@ describe('<ProductList />', () => {
 
     const productsList = await screen.findByRole('list')
 
-    const productsListItem =
-      productsList.querySelectorAll('[role="listitem"]')
+    const productsListItem = productsList.querySelectorAll('[role="listitem"]')
 
     expect(productsListItem.length).toBe(5)
+  })
+
+  it('should have "main-content" ID to enable "skip to main content" link for accessibility', async () => {
+    render(<ProductList products={products} />)
+
+    const mainElement = await screen.findByRole('main')
+
+    expect(mainElement).toHaveAttribute('id', 'main-content')
   })
 })

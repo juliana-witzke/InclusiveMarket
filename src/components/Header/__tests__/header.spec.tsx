@@ -107,4 +107,14 @@ describe('<Header />', () => {
     renderHeader()
     expect(screen.getByRole('heading', { name: 'Inclusive Market' }))
   })
+
+  it('should have a "skip to main content" link that takes the user to the product\'s list for accessibility', async () => {
+    renderHeader()
+
+    const skipToMainContentElement = screen.getByRole('link', {
+      name: 'Skip to main content'
+    })
+
+    expect(skipToMainContentElement).toHaveAttribute('href', '#main-content')
+  })
 })
