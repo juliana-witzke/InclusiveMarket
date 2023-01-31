@@ -23,6 +23,7 @@ const Home: NextPage = () => {
       <CartSidebar
         closeCartSidebar={() => setShowCartSidebar(false)}
         isHidden={!showCartSidebar}
+        role="dialog"
       />
 
       <ProductList products={products} />

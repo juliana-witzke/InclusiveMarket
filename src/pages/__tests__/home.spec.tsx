@@ -69,7 +69,7 @@ describe('<Home />', () => {
 
     fireEvent.click(openCartSidebarButton)
 
-    const cartSidebar = await screen.findByRole('complementary', {
+    const cartSidebar = await screen.findByRole('dialog', {
       hidden: false
     })
 
@@ -86,7 +86,7 @@ describe('<Home />', () => {
 
     fireEvent.click(openCartSidebarButton)
 
-    const cartSidebar = await screen.findByRole('complementary', {
+    const cartSidebar = await screen.findByRole('dialog', {
       hidden: false
     })
 

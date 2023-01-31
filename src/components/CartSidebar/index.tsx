@@ -17,6 +17,7 @@ import { useCart } from '../../context/cartContext'
 export interface ICartSidebar {
   closeCartSidebar: () => void
   isHidden: boolean
+  role: string
 }
 
 export const getCartTotalPrice = (products: ICartProduct[]) => {
@@ -31,7 +32,8 @@ export const getCartTotalPrice = (products: ICartProduct[]) => {
 
 export const CartSidebar = ({
   closeCartSidebar,
-  isHidden
+  isHidden,
+  role
 }: ICartSidebar): JSX.Element => {
   const { products, increaseQuantity, decreaseQuantity, removeProduct } = useCart()
 
@@ -40,6 +42,7 @@ export const CartSidebar = ({
       <Sidebar
         aria-hidden={isHidden}
         style={{ display: isHidden ? 'none' : 'flex' }}
+        role={role}
       >
         <Header>
           <CloseButton aria-label="Close cart" onClick={closeCartSidebar}>
@@ -74,8 +77,9 @@ export const CartSidebar = ({
       </Sidebar>
 
       <Overlay
-        aria-hidden={false}
+        aria-hidden={true}
         style={{ display: isHidden ? 'none' : 'flex' }}
+        data-testid="overlay"
       />
     </>
   )

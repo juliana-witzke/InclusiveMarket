@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 
@@ -12,7 +12,8 @@ const closeCartSidebarMock = jest.fn().mockImplementation(() => {})
 
 const cartSidebarProps: ICartSidebar = {
   isHidden: false,
-  closeCartSidebar: closeCartSidebarMock
+  closeCartSidebar: closeCartSidebarMock,
+  role: 'dialog'
 }
 
 describe('<CartSidebar />', () => {
@@ -28,7 +29,7 @@ describe('<CartSidebar />', () => {
     return productsResult.current.products
   }
 
-  const renderCartSidebar = ({ isHidden, closeCartSidebar }: ICartSidebar) => {
+  const renderCartSidebar = ({ isHidden, closeCartSidebar, role }: ICartSidebar) => {
     return render(
       <CartContext.Provider
         value={{
@@ -36,10 +37,11 @@ describe('<CartSidebar />', () => {
           addProduct: () => {},
           removeProduct: () => {},
           increaseQuantity: () => {},
-          decreaseQuantity: () => {}
+          decreaseQuantity: () => {},
+          numberOfProductsInTheCart: 11
         }}
       >
-        <CartSidebar isHidden={isHidden} closeCartSidebar={closeCartSidebar} />
+        <CartSidebar isHidden={isHidden} closeCartSidebar={closeCartSidebar} role={role}/>
       </CartContext.Provider>
     )
   }
@@ -57,6 +59,11 @@ describe('<CartSidebar />', () => {
 
   afterAll(() => {
     server.shutdown()
+    jest.clearAllMocks()
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
   })
 
   it('should render a list of 5 products', async () => {
@@ -80,10 +87,10 @@ describe('<CartSidebar />', () => {
     expect(cartTotalPriceElement).toBeInTheDocument()
   })
 
-  it('should close the sidebar when clicking the "x" (close) button ', () => {
+  it('should close the sidebar when clicking the "x" (close) button', () => {
     renderCartSidebar(cartSidebarProps)
 
-    const cartSidebar = screen.getByRole('complementary', { hidden: false })
+    const cartSidebar = screen.getByRole('dialog', { hidden: false })
 
     expect(cartSidebar).toBeVisible()
     expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
@@ -92,6 +99,31 @@ describe('<CartSidebar />', () => {
 
     fireEvent.click(closeButtonElement)
 
-    expect(closeCartSidebarMock).toHaveBeenCalledTimes(1)
+    waitFor(() => {
+      expect(cartSidebar).toHaveAttribute('aria-hidden', 'true')
+      expect(closeCartSidebarMock).toHaveBeenCalledTimes(1)
+      expect(cartSidebar).not.toBeVisible()
+    })
+  })
+
+  it('should display overlay visually but hide it always for acessibility', () => {
+    renderCartSidebar(cartSidebarProps)
+
+    const cartSidebar = screen.getByRole('dialog', { hidden: false })
+    const overlayElement = screen.getByTestId('overlay')
+
+    expect(overlayElement).toBeVisible()
+    expect(overlayElement).toHaveAttribute('aria-hidden', 'true')
+    expect(cartSidebar).toBeVisible()
+    expect(cartSidebar).toHaveAttribute('aria-hidden', 'false')
+
+    const closeButtonElement = screen.getByLabelText('Close cart')
+
+    fireEvent.click(closeButtonElement)
+    waitFor(() => {
+      expect(closeCartSidebarMock).toHaveBeenCalledTimes(1)
+      expect(overlayElement).not.toBeVisible()
+      expect(overlayElement).toHaveAttribute('aria-hidden', 'true')
+    })
   })
 })
