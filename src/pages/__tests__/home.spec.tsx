@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 
@@ -96,5 +96,30 @@ describe('<Home />', () => {
 
     expect(cartSidebar).not.toBeVisible()
     expect(cartSidebar).toHaveAttribute('aria-hidden', 'true')
+  })
+
+  it('should toggle skip to main content link visibility when opening/closing cart sidebar', async () => {
+    renderHome()
+    const openCartSidebarButton = await screen.findByRole('button', {
+      name: 'Open cart'
+    })
+    const skipToMainContentElement = screen.getByRole('link', {
+      name: 'Skip to main content'
+    })
+
+    waitFor(() => {
+      expect(skipToMainContentElement).toBeVisible()
+    })
+    
+    fireEvent.click(openCartSidebarButton)
+    waitFor(() => {
+      expect(skipToMainContentElement).not.toBeVisible()
+    })
+
+    const closeButtonElement = screen.getByLabelText('Close cart')
+    fireEvent.click(closeButtonElement)
+    waitFor(() => {
+      expect(skipToMainContentElement).toBeVisible()
+    })
   })
 })

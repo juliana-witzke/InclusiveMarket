@@ -11,17 +11,21 @@ import {
 } from './styles'
 
 interface IHeader {
-  openCartSidebar: () => void
+  openCartSidebar: () => void,
+  showCartSidebar: boolean
 }
 
-export const Header = ({ openCartSidebar }: IHeader): JSX.Element => {
+export const Header = ({ openCartSidebar, showCartSidebar }: IHeader): JSX.Element => {
   const { numberOfProductsInTheCart } = useCart()
 
   return (
     <HeaderContainer>
-      <SkipToMainContentLink href="#main-content">
-        Skip to main content
-      </SkipToMainContentLink>
+      {showCartSidebar}
+      {!showCartSidebar && (
+        <SkipToMainContentLink href="#main-content">
+          Skip to main content
+        </SkipToMainContentLink>
+      )}
 
       <ContentContainer>
         <LogoContainer>

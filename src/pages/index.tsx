@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         <title>Aplicação Fullstack de Acessibilidade Digital com TDD</title>
       </Head>
 
-      <Header openCartSidebar={() => setShowCartSidebar(true)} />
+      <Header showCartSidebar={showCartSidebar} openCartSidebar={() => setShowCartSidebar(true)} />
 
       <CartSidebar
         closeCartSidebar={() => setShowCartSidebar(false)}
