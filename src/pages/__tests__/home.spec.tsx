@@ -94,8 +94,7 @@ describe('<Home />', () => {
 
     fireEvent.click(closeButtonElement)
 
-    expect(cartSidebar).not.toBeVisible()
-    expect(cartSidebar).toHaveAttribute('aria-hidden', 'true')
+    expect(cartSidebar).not.toBeInTheDocument()
   })
 
   it('should toggle skip to main content link visibility when opening/closing cart sidebar', async () => {
@@ -110,7 +109,7 @@ describe('<Home />', () => {
     waitFor(() => {
       expect(skipToMainContentElement).toBeVisible()
     })
-    
+
     fireEvent.click(openCartSidebarButton)
     waitFor(() => {
       expect(skipToMainContentElement).not.toBeVisible()

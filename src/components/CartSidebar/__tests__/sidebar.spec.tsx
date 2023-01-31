@@ -122,8 +122,7 @@ describe('<CartSidebar />', () => {
     fireEvent.click(closeButtonElement)
     waitFor(() => {
       expect(closeCartSidebarMock).toHaveBeenCalledTimes(1)
-      expect(overlayElement).not.toBeVisible()
-      expect(overlayElement).toHaveAttribute('aria-hidden', 'true')
+      expect(overlayElement).not.toBeInTheDocument()
     })
   })
 })

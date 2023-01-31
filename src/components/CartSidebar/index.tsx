@@ -39,9 +39,9 @@ export const CartSidebar = ({
 
   return (
     <>
+    {!isHidden && (
       <Sidebar
         aria-hidden={isHidden}
-        style={{ display: isHidden ? 'none' : 'flex' }}
         role={role}
       >
         <Header>
@@ -75,12 +75,14 @@ export const CartSidebar = ({
           <CtaButton>place order</CtaButton>
         </Footer>
       </Sidebar>
+    )}
 
-      <Overlay
-        aria-hidden={true}
-        style={{ display: isHidden ? 'none' : 'flex' }}
-        data-testid="overlay"
-      />
+      {!isHidden && (
+        <Overlay
+          aria-hidden={true}
+          data-testid="overlay"
+        />
+      )}
     </>
   )
 }
