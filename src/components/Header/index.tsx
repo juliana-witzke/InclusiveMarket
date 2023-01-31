@@ -20,13 +20,6 @@ export const Header = ({ openCartSidebar, showCartSidebar }: IHeader): JSX.Eleme
 
   return (
     <HeaderContainer>
-      {showCartSidebar}
-      {!showCartSidebar && (
-        <SkipToMainContentLink href="#main-content">
-          Skip to main content
-        </SkipToMainContentLink>
-      )}
-
       <ContentContainer>
         <LogoContainer>
           <Image
@@ -36,7 +29,13 @@ export const Header = ({ openCartSidebar, showCartSidebar }: IHeader): JSX.Eleme
             height={75}
           />
           <h1>Inclusive Market</h1>
+          {!showCartSidebar && (
+            <SkipToMainContentLink href="#main-content">
+              Skip to main content
+            </SkipToMainContentLink>
+          )}
         </LogoContainer>
+
 
         <CartButton aria-label="Open cart" onClick={openCartSidebar}>
           <span aria-label="Number of products added to cart">

@@ -25,13 +25,12 @@ export const ContentContainer = styled.div`
 
 export const SkipToMainContentLink = styled.a`
   opacity: 0;
-  background-color: white;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 20px;
+  background: #00a12a;
+  border-radius: 34px;
+  color: #fff;
+  margin: 20px 25px;
   padding: 5px 10px;
-
+  font-size: 13px;
   &:focus {
     opacity: 1;
   }
