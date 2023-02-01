@@ -21,6 +21,9 @@ export const ContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 280px) {
+    flex-direction: column;
+  }
 `
 
 export const SkipToMainContentLink = styled.a`
@@ -62,5 +65,9 @@ export const CartButton = styled.button`
     font-family: 'Jura';
     font-size: 18px;
     color: #fff;
+  }
+  @media screen and (max-width: 280px) {
+    width: 100%;
+    justify-content: center;
   }
 `

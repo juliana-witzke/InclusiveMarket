@@ -24,6 +24,9 @@ export const Sidebar = styled.aside`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 export const CloseButton = styled.button`
