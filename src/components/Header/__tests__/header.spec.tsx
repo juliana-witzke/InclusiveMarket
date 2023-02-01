@@ -114,7 +114,18 @@ describe('<Header />', () => {
     const skipToMainContentElement = screen.getByRole('link', {
       name: 'Skip to main content'
     })
-
     expect(skipToMainContentElement).toHaveAttribute('href', '#main-content')
+  })
+
+  it('should display "skip to main content" only when it is mobile', async () => {
+    renderHeader()
+
+    const skipToMainContentElement = screen.getByRole('link', {
+      name: 'Skip to main content'
+    })
+    global.innerWidth = 768
+    expect(skipToMainContentElement).toBeInTheDocument()
+    global.innerWidth = 767
+    expect(skipToMainContentElement).not.toBeVisible()
   })
 })

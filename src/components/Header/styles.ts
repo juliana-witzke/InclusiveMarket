@@ -35,7 +35,7 @@ export const SkipToMainContentLink = styled.a`
     opacity: 1;
   }
 
-  @media screen and (max-width: 1180px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `
