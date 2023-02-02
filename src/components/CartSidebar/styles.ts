@@ -93,7 +93,7 @@ export const TotalPrice = styled.div`
   & p:nth-child(2) {
     font-weight: 800;
     font-size: 32px;
-    color: #00DD06;
+    color: #00dd06;
   }
 `
 
@@ -101,10 +101,14 @@ export const CtaButton = styled.button`
   font-family: 'Nunito';
   font-weight: 700;
   font-size: 22px;
-  background: #00DD06;
+  background: #00dd06;
   color: #000;
   width: 300px;
   height: 50px;
   border-radius: 34px;
   margin-top: 32px;
+
+  @media screen and (max-width: 280px) {
+    width: 225px;
+  }
 `
