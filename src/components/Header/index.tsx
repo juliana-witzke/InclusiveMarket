@@ -11,11 +11,14 @@ import {
 } from './styles'
 
 interface IHeader {
-  openCartSidebar: () => void,
+  openCartSidebar: () => void
   showCartSidebar: boolean
 }
 
-export const Header = ({ openCartSidebar, showCartSidebar }: IHeader): JSX.Element => {
+export const Header = ({
+  openCartSidebar,
+  showCartSidebar
+}: IHeader): JSX.Element => {
   const { numberOfProductsInTheCart } = useCart()
 
   return (
@@ -25,7 +28,7 @@ export const Header = ({ openCartSidebar, showCartSidebar }: IHeader): JSX.Eleme
           <Image
             src="/images/dehsmarket.svg"
             alt="Inclusive market logo"
-            width="100%"
+            width={75}
             height={75}
           />
           <h1>Inclusive Market</h1>
@@ -35,7 +38,6 @@ export const Header = ({ openCartSidebar, showCartSidebar }: IHeader): JSX.Eleme
             </SkipToMainContentLink>
           )}
         </LogoContainer>
-
 
         <CartButton aria-label="Open cart" onClick={openCartSidebar}>
           <span aria-label="Number of products added to cart">

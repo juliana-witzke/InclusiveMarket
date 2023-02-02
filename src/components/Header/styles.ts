@@ -12,6 +12,7 @@ export const HeaderContainer = styled.header`
 
   h1 {
     color: #fff;
+    margin-left: 15px;
   }
 `
 
