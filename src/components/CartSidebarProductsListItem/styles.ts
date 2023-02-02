@@ -9,6 +9,28 @@ export const Container = styled.div`
   padding: 20px;
   margin-top: 10px;
   border-radius: 18px;
+
+  @media screen and (max-width: 280px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`
+
+export const DivFora = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and (max-width: 375px) {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 280px) {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
 `
 
 export const ImageContainer = styled.div`
@@ -32,6 +54,10 @@ export const ProductDetails = styled.div`
   flex-grow: 1;
 
   margin-left: 18px;
+
+  @media screen and (max-width: 280px) {
+    margin-left: 12px;
+  }
 `
 
 export const Title = styled.p`

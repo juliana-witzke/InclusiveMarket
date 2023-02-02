@@ -13,7 +13,8 @@ import {
   Quantity,
   MinusButton,
   PlusButton,
-  RemoveButton
+  RemoveButton,
+  DivFora
 } from './styles'
 
 interface ICartSidebarProductsListItem extends ICartProduct {
@@ -38,19 +39,21 @@ export const CartSidebarProductsListItem = ({
   return (
     <>
       <Container role="listitem">
-        <ImageContainer>
-          <ProductImage
-            src={product.image.url}
-            alt={product.image.description}
-          />
-        </ImageContainer>
+        <DivFora>
+          <ImageContainer>
+            <ProductImage
+              src={product.image.url}
+              alt={product.image.description}
+            />
+          </ImageContainer>
 
-        <ProductDetails>
-          <Title>{product.title}</Title>
-          <Price>
-            ${product.price} <Unit>/kg</Unit>
-          </Price>
-        </ProductDetails>
+          <ProductDetails>
+            <Title>{product.title}</Title>
+            <Price>
+              ${product.price} <Unit>/kg</Unit>
+            </Price>
+          </ProductDetails>
+        </DivFora>
 
         <Actions>
           <MinusButton
