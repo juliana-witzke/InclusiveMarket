@@ -121,7 +121,7 @@ describe('<Home />', () => {
       expect(skipToMainContentElement).toBeVisible()
     })
   })
-  it('should focus on "close" cart sidebar button when clicking on "open" sidebar button', async () => {
+  it('should focus on "close" cart sidebar button when clicking on "open" sidebar button for accessibility', async () => {
     renderHome()
 
     const openCartSidebarButton = await screen.findByRole('button', {
@@ -135,7 +135,7 @@ describe('<Home />', () => {
       expect(closeButtonElement).toHaveFocus()
     })
   })
-  it('should focus on "open" cart sidebar button when clicking on "close" sidebar button', async () => {
+  it('should focus on "open" cart sidebar button when clicking on "close" sidebar button for accessibility', async () => {
     renderHome()
 
     const openCartSidebarButton = await screen.findByRole('button', {
