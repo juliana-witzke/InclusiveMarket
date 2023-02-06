@@ -36,7 +36,7 @@ describe('<Header />', () => {
           numberOfProductsInTheCart
         }}
       >
-        <Header openCartSidebar={openCartSidebarMock} />
+        <Header openCartSidebar={openCartSidebarMock} openSidebarButtonRef={jest.fn()} showCartSidebar={false}/>
       </CartContext.Provider>
     )
   }
@@ -128,4 +128,6 @@ describe('<Header />', () => {
     global.innerWidth = 767
     expect(skipToMainContentElement).not.toBeVisible()
   })
+
+  it.skip('showCartSidebar e openSidebarButtonRef', () => {})
 })

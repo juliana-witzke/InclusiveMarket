@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { FiX } from 'react-icons/fi'
 
 import { CartSidebarProductsListItem } from '../CartSidebarProductsListItem'
@@ -13,11 +12,13 @@ import {
   CtaButton
 } from './styles'
 import { useCart } from '../../context/cartContext'
+import React, { Ref } from 'react'
 
 export interface ICartSidebar {
   closeCartSidebar: () => void
   isHidden: boolean
   role: string
+  closeSidebarButtonRef: Ref<HTMLButtonElement>
 }
 
 export const getCartTotalPrice = (products: ICartProduct[]) => {
@@ -33,10 +34,20 @@ export const getCartTotalPrice = (products: ICartProduct[]) => {
 export const CartSidebar = ({
   closeCartSidebar,
   isHidden,
-  role
+  role,
+  closeSidebarButtonRef
 }: ICartSidebar): JSX.Element => {
   const { products, increaseQuantity, decreaseQuantity, removeProduct } = useCart()
 
+  type Props = { children: JSX.Element; type: 'button'}
+  type Ref = HTMLButtonElement
+  const CloseSidebarButton = React.forwardRef<Ref, Props>((props, ref) => (
+    <CloseButton ref={ref} aria-label="Close cart" onClick={closeCartSidebar}>
+      {props.children}
+    </CloseButton>
+  ));
+  CloseSidebarButton.displayName = "CloseSidebarButton"
+  
   return (
     <>
     {!isHidden && (
@@ -45,9 +56,9 @@ export const CartSidebar = ({
         role={role}
       >
         <Header>
-          <CloseButton aria-label="Close cart" onClick={closeCartSidebar}>
+          <CloseSidebarButton type='button' ref={closeSidebarButtonRef}>
             <FiX size={26} color="#00DD06" />
-          </CloseButton>
+          </CloseSidebarButton>
 
           <h3>Cart</h3>
         </Header>

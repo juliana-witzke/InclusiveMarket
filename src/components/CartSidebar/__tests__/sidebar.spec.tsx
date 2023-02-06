@@ -13,7 +13,8 @@ const closeCartSidebarMock = jest.fn().mockImplementation(() => {})
 const cartSidebarProps: ICartSidebar = {
   isHidden: false,
   closeCartSidebar: closeCartSidebarMock,
-  role: 'dialog'
+  role: 'dialog',
+  closeSidebarButtonRef: jest.fn()
 }
 
 describe('<CartSidebar />', () => {
@@ -29,7 +30,7 @@ describe('<CartSidebar />', () => {
     return productsResult.current.products
   }
 
-  const renderCartSidebar = ({ isHidden, closeCartSidebar, role }: ICartSidebar) => {
+  const renderCartSidebar = ({ isHidden, closeCartSidebar, role, closeSidebarButtonRef }: ICartSidebar) => {
     return render(
       <CartContext.Provider
         value={{
@@ -41,7 +42,7 @@ describe('<CartSidebar />', () => {
           numberOfProductsInTheCart: 11
         }}
       >
-        <CartSidebar isHidden={isHidden} closeCartSidebar={closeCartSidebar} role={role}/>
+        <CartSidebar isHidden={isHidden} closeCartSidebar={closeCartSidebar} role={role} closeSidebarButtonRef={closeSidebarButtonRef}/>
       </CartContext.Provider>
     )
   }

@@ -31,7 +31,7 @@ describe('<Home />', () => {
           removeProduct: () => {},
           increaseQuantity: () => {},
           decreaseQuantity: () => {},
-          getNumberOfProductsInTheCart: () => 0
+          numberOfProductsInTheCart: 0
         }}
       >
         <Home />
@@ -119,6 +119,20 @@ describe('<Home />', () => {
     fireEvent.click(closeButtonElement)
     waitFor(() => {
       expect(skipToMainContentElement).toBeVisible()
+    })
+  })
+  it('should focus on "close" cart sidebar button when clicking on "open" sidebar button', async () => {
+    renderHome()
+
+    const openCartSidebarButton = await screen.findByRole('button', {
+      name: 'Open cart'
+    })
+    fireEvent.click(openCartSidebarButton)
+
+    const closeButtonElement = screen.getByLabelText('Close cart')
+    
+    waitFor(() => {
+      expect(closeButtonElement).toHaveFocus()
     })
   })
 })

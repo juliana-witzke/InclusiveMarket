@@ -9,15 +9,18 @@ import {
   ContentContainer,
   SkipToMainContentLink
 } from './styles'
+import { Ref } from 'react'
 
 interface IHeader {
   openCartSidebar: () => void
   showCartSidebar: boolean
+  openSidebarButtonRef: Ref<HTMLButtonElement>
 }
 
 export const Header = ({
   openCartSidebar,
-  showCartSidebar
+  showCartSidebar,
+  openSidebarButtonRef
 }: IHeader): JSX.Element => {
   const { numberOfProductsInTheCart } = useCart()
 
@@ -39,7 +42,7 @@ export const Header = ({
           )}
         </LogoContainer>
 
-        <CartButton aria-label="Open cart" onClick={openCartSidebar}>
+        <CartButton aria-label="Open cart" ref={openSidebarButtonRef} onClick={openCartSidebar}>
           <span aria-label="Number of products added to cart">
             {numberOfProductsInTheCart}
           </span>
