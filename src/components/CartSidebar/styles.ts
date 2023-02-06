@@ -25,8 +25,8 @@ export const Sidebar = styled.aside`
   flex-direction: column;
   justify-content: space-between;
 
-  overflow: scroll;
   @media screen and (max-width: 767px) {
+    overflow: scroll;
     width: 100%;
   }
 `
