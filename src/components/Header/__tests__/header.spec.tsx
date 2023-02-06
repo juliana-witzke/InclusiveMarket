@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Server } from 'miragejs'
 
@@ -91,7 +91,7 @@ describe('<Header />', () => {
     server.shutdown()
   })
 
-  it('should call open cart sidebar when clicking on button', async () => {
+  it('should call open cart sidebar when clicking on open sidebar button', async () => {
     renderHeader()
 
     const openCartSidebarButton = await screen.findByRole('button', {
@@ -117,7 +117,7 @@ describe('<Header />', () => {
     expect(skipToMainContentElement).toHaveAttribute('href', '#main-content')
   })
 
-  it('should display "skip to main content" only when it is mobile', async () => {
+  it('should not display "skip to main content" when it is mobile', async () => {
     renderHeader()
 
     const skipToMainContentElement = screen.getByRole('link', {
@@ -129,5 +129,19 @@ describe('<Header />', () => {
     expect(skipToMainContentElement).not.toBeVisible()
   })
 
-  it.skip('showCartSidebar e openSidebarButtonRef', () => {})
+  it('should display "skip to main content" only when cart sidebar is not open', async () => {
+    renderHeader()
+
+    const openCartSidebarButton = await screen.findByRole('button', {
+      name: 'Open cart'
+    })
+    const skipToMainContentElement = screen.getByRole('link', {
+      name: 'Skip to main content'
+    })
+    expect(skipToMainContentElement).toBeInTheDocument()
+    fireEvent.click(openCartSidebarButton)
+    waitFor(() => {
+      expect(skipToMainContentElement).not.toBeInTheDocument()
+    })
+  })
 })
