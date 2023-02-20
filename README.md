@@ -8,16 +8,18 @@
 
 - [Purpose](#purpose)
 - [Installation](#installation)
-- [Content](#content)
+- [Original Content](#original-content)
 - [Using MirageJS](#using-miragejs)
-- [Tests Suggestions](#tests-suggestions)
+- [Acknowledgment](#acknowledgment)
 - [Techs and Libs](#techs-and-libs)
 
 <!--te-->
 
 # Purpose
 
-<b>Deh's Market</b> was created to support TDD learning. This application has its styles already done so you can focus on using TDD to implement its functionalities. You can check [tests suggestions](#tests-suggestions) down below.
+Originally, [<b>Deh's Market</b>](https://github.com/dehcastro/dehsmarket) was created to support TDD learning. The original application had its styles already done (even thought we changed them a bit) so we could focus on using TDD to implement its functionalities.
+
+However, we changed the concept a bit, and, instead of only practicing TDD, we wanted to create an entire application with [accessibility first](https://www.24a11y.com/2017/accessibility-first/) in mind. In order to show to other people that it is possible to develop a great product while still striving for accessibility.
 
 # Installation
 
@@ -39,9 +41,9 @@ yarn dev
 
 ```
 
-# Content
+# Original Content
 
-Feel free to improve and include more complexity. Here's the figma link: https://www.figma.com/file/Ra9QIH91rs3okS9wb6SqIL/deh'smarket?node-id=0%3A1
+Feel free to improve and include more complexity. Here's the original Figma link: https://www.figma.com/file/Ra9QIH91rs3okS9wb6SqIL/deh'smarket?node-id=0%3A1
 
 <img src="material/main.png" alt="dehsmarket main page">
 <img src="material/sidebar.png" alt="dehsmarket main page with sidebar open">
@@ -118,61 +120,9 @@ describe('Test Suit', () => {
 
 Check out [MirageJS](https://github.com/miragejs/miragejs) documentation for more.
 
-# Tests Suggestions
+# Acknowledgment
 
-```typescript
-// src/pages/index.tsx
-
-it.todo('should display cart quantity when adding product to cart')
-it.todo('should show sidebar when clicking the cart button')
-it.todo('should hide sidebar when clicking the close sidebar button')
-it.todo('should be able to remove a product from cart')
-```
-
-```typescript
-// src/hooks/useFetchProducts.tsx
-
-it.todo('should return a list of 3 products')
-it.todo('should set error to true when request fails')
-```
-
-```typescript
-// src/context/cartContext.tsx
-
-it.todo('should be able to add a product')
-it.todo('should not be able to add the same product twice')
-it.todo('should be able to remove a product')
-it.todo("should be able to increase a product's quantity by 1")
-it.todo("should be able to decrease a product's quantity by 1")
-it.todo("should be able to decrease a product's quantity by 1 but never hit 0")
-```
-
-```typescript
-// src/components/CartSidebar/index.tsx
-
-it.todo('should render a list of 5 products')
-it.todo('update total price based on the added products and their quantities')
-```
-
-```typescript
-// src/components/ProductAddedToCart/index.tsx
-
-it.todo('should render the product with its info')
-it.todo('should be able to increase quantity by 1')
-it.todo('should be able to decrease quantity by 1')
-```
-
-```typescript
-// src/components/ProductCard/index.tsx
-
-it.todo('should render the product card component with product info')
-```
-
-```typescript
-// src/components/ProductList/index.tsx
-
-it.todo('should render a list of 5 products')
-```
+We would like to thanks @dehcastro for the template, and also for the learning initiative. It certainly was an important starting point for us!
 
 # Techs and Libs
 
