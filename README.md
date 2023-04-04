@@ -17,7 +17,7 @@
 
 # Purpose
 
-<b>Deh's Market</b> was created to support TDD learning. This application has its styles already done so you can focus on using TDD to implement its functionalities. You can check [tests suggestions](#tests-suggestions) down below.
+<b><a href="https://github.com/dehcastro/dehsmarket">Deh's Market</a></b> was created to support TDD learning. This application has its styles already done so you can focus on using TDD to implement its functionalities. You can check [tests suggestions](#tests-suggestions) down below.
 
 # Installation
 
